@@ -1,0 +1,65 @@
+main {
+    max-width: 850px;
+    display: flex;
+    height: initial;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-menu {
+    min-width: 280px;
+    border: 1px solid #DDD;
+    background-color: black;
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Georgia;
+    font-size: 22px;
+    text-align: center;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -o-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.admin-menu .list-header {
+    font-family: impact;
+    background-color: white;
+    color: black;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+/* TODO: Why can't I just use initial? */
+.admin-menu .list-header:hover {
+    background-color: white;
+    color: black;
+}
+
+.admin-menu li {
+    padding: 7px;
+    border-bottom: 2px solid  #DDD;
+}
+
+.admin-menu li:last-of-type {
+    border: none;
+}
+
+.admin-menu li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.admin-menu li:active {
+    font-weight: 600;
+}
+
+.admin-menu a {
+    color: white;
+}
+
+.admin-menu a:hover {
+    color: #DDD;
+}

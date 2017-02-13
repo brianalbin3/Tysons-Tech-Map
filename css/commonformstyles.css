@@ -1,0 +1,98 @@
+.form-container {
+    width: 305px;
+    border: 15px solid white;
+    background-color: white;
+    padding: 0;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -o-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.form-header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+fieldset {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 0;
+    padding-bottom: 5px;
+    border: 1px solid black;
+    background-color: #DDD;
+}
+
+.legend-container {
+    width: 100%;
+    text-align: left;
+    background-color: black;
+}
+
+legend {
+    color: white;
+    font-size: 18px;
+    font-family: Georgia;
+    border: none;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.common-txt-input {
+    width: 172px;
+    border: 1px solid #BBB;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.common-txt-input:first-of-type {
+    margin-top: 8px;
+}
+
+.common-txt-input:last-of-type {
+    margin-bottom: 8px;
+}
+
+/* WAY TOO BROAD */
+.common-select {
+    width: 172px;
+    height: 26px;
+    border: 1px solid #BBB;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.checkbox-label {
+    width: 100px;
+}
+
+.form-checkbox {
+    position: relative;
+    top: 3px;
+}
+
+.submit-btn {
+    width: 100%;
+}
+
+@media screen and (max-width:350px) {
+    .form-container {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        -o-box-shadow: none;
+        box-shadow: none;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}

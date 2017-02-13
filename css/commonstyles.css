@@ -1,0 +1,183 @@
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #EEE;
+    height: 100%;
+}
+
+header {
+    display: flex;
+    background-color: #404040;
+    background-image: -webkit-linear-gradient(top, #555 0%, #222 100%);
+    background-image: -moz-linear-gradient(top, #555 0%, #222 100%);
+    background-image: -o-linear-gradient(top, #555 0%, #222 100%);
+    background-image: linear-gradient(top, #555 0%, #222 100%);
+    height: 50px;
+}
+
+main {
+    height: calc(100% - 50px);
+    width: 100%;
+}
+
+.hamburger-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+}
+
+.hamburger-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    max-width: 24px;
+    cursor: pointer;
+    background-image: url('../img/hamburger-icon.svg');
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    margin-right: 24px;
+    align-self: center;
+}
+
+.header-label-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.header-label {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 26px;
+    color: #f4f4f4;
+    align-self: center;
+    font-family: Impact;
+}
+
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    min-width: 24px;
+}
+
+.profile {
+    width: 24px;
+    height: 24px;
+    align-self: center;
+    border: 2px solid #333;
+    border-radius: 24px;
+    text-align: center;
+    font-weight: bolder;
+    background-color: #EEE;
+    cursor: pointer;
+}
+
+.popover {
+    width: 125px;
+    text-align: center;
+}
+
+.popover-content {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.profile-action-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.profile-action-list li {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
+.profile-action-list li:last-of-type {
+    padding-top: none;
+}
+
+.profile-action-list li:last-of-type {
+    border: none;
+    padding-bottom: none;
+}
+
+.profile-action-list li a {
+    font-family: Georgia;
+    font-weight: bold;
+}
+
+nav {
+    position: fixed;
+    background-color: black;
+    z-index: 2;
+    width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out;
+}
+
+.nav-list {
+    list-style-type: none;
+    text-align: center;
+    padding-left: 0;
+    margin: 0;
+}
+
+.nav-list-item {
+    border-bottom: 1px solid #999;
+}
+
+.nav-list-item:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.nav-link {
+    color: white;
+    font-size: 20px;
+    font-family: Georgia;
+}
+
+.nav-link:hover {
+    color: #ddd;
+}
+
+.nav-link:active {
+    font-weight: bolder;
+}
+
+main {
+    background-color: #EEE;
+}
+
+.std-btn {
+    border-radius: 3px;
+    background-color: black;
+    color: white;
+    border: 0;
+    font-family: Georgia;
+    font-size: 15px;
+    height: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+
+.std-btn:active {
+    background-color: #111;
+}
+
+.std-btn:active div {
+    bottom: 1px;
+    font-size: 14px;
+    position: relative;
+}

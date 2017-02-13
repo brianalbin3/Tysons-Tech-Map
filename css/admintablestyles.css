@@ -1,0 +1,162 @@
+main {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+}
+
+.admin-table-page-header {
+    width: 100%;
+    text-align: center;
+    font-family: Impact;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+.add-item-btn {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.table-container {
+    width: calc( 100% - 40px ); /* TODO: There has got to be a better way to get shadows working */;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -o-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+table {
+    width: 100%;
+}
+
+tr, thead {
+
+}
+
+td, th {
+    border: 3px solid #eee; /* Same color as background */
+    padding-left: 2px;
+    padding-right: 2px;
+    font-family: Georgia;
+}
+
+th {
+    text-align: center;
+    height: 40px;
+    background-color: #c5c5c5;
+    color: #404040;
+    font-size: 14px;
+}
+
+.table-span, .table-input {
+    /*height: 54px;*/
+}
+
+/* min-height and max-height don't work for table elements */
+
+td {
+    background-color: #505050;
+    height: 60px;
+}
+
+.checkbox-table-cell {
+    text-align: center;
+}
+
+.table-span {
+    line-height: 54px;
+}
+
+.table-span > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1em; /*set line height back to normal*/
+    color: #f4f4f4;
+}
+
+.table-input {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: 100%;
+}
+
+input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+}
+
+/* TODO: Can make this ALOT better */
+.admin-table-btn {
+    color: black;
+    font-weight: 900;
+    font-size: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.delete-item-btn:before {
+    content: '×';
+}
+
+.add-item-menu {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.toggled {
+    display: block;
+}
+
+.gray-out {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(80, 80, 80, .6);
+    z-index: 2;
+    display: none;
+}
+
+/* TODO: Does this belong here, or should I move to commonformstyles.css? */
+.cancel-btn {
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 550px) {
+
+    .table-container {
+        width: calc( 100% - 10px );
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        -o-box-shadow: none;
+        box-shadow: none;
+    }
+
+    tr, thead {
+        background-color: #eee;
+    }
+
+    td:last-of-type {
+    }
+
+    th, td {
+        display: block;
+        text-align: center;
+    }
+
+    tr, th {
+        padding-bottom: 20px;
+        display: block;
+    }
+}

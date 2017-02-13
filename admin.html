@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""> <!-- TODO: Should I even have this???  -->
+    <meta name="author" content="Brian Albin">
+    <title>Administrator Options</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/commonstyles.css">
+    <link rel="stylesheet" href="css/commonformstyles.css">
+    <link rel="stylesheet" href="css/adminstyles.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-icon-wrapper">
+            <div class="hamburger-icon" id="menu-toggle"></div>
+        </div>
+        <div class="header-label-wrapper">
+            <h1 class="header-label">Tysons Tech Map</h1>
+        </div>
+        <div class="profile-wrapper">
+            <!-- TODO: Font with profile picture -->
+            <!-- TODO: Content changes depending on whether or not user is logged in or not -->
+            <div class="profile" data-popover="true" data-content="
+                <ul class='profile-action-list'>
+                    <li><a href='editprofile.html'>Edit Profile</a></li>
+                    <li><a href='#'>Sign Out</a></li>
+                    <li><a href='admin.html'>Admin</a></li>
+                </ul>
+                ">
+                <span>B</span>
+            </div>
+    </header>
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-list-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-list-item"><a href="news.html" class="nav-link">News</a></li>
+        </ul>
+    </nav>
+    <main>
+        <ul class="admin-menu">
+            <li class="list-header">Admin Menu</li>
+            <li><a href="manageusers.html">Manage Users</a></li>
+            <li><a href="managecompanies.html">Manage Companies</a></li>
+            <li><a href="managenews.html">Manage News</a></li>
+        </ul>
+    </main>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/libs/knockout-3.2.0.js"></script>
+    <script src="js/commonscript.js"></script>
+</body>
+</html>

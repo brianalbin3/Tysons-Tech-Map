@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A map of the tech companies in Tysons Corner, Virginia.">
+    <meta name="author" content="Brian Albin">
+    <title>Tysons Tech Map</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mainmapstyles.css">
+    <link rel="stylesheet" href="css/commonstyles.css">
+</head>
+<body>
+    <div id="wrapper">
+        <aside id="sidebar-wrapper">
+            <div class="search-bar-container">
+                <input type="text" data-bind="textInput: filter" class="search-bar-text-box">
+                <img src="img/magnifyingglass.svg" alt="Find" class="search-bar-magnifying-glass">
+            </div>
+            <ul class="sidebar" data-bind="foreach: filterLocations">
+                <li data-bind="click: $parent.setActiveLocation">
+                    <a href="#" data-bind="text: name, style: { fontWeight: $parent.currentLocation().location.name == name ? 'bolder' : 'normal', color: $parent.currentLocation().location.name == name ? 'white' : '' }"></a>
+                </li>
+            </ul>
+        </aside>
+        <button id="sidebar-toggle" class="sidebar-toggle-button">
+            <!--  TODO: Use a better arrow icon -->
+            <span class="hide-list"><span class="arrow-left">◄</span><span class="toggle-list-text">Hide List</span></span>
+            <span class="show-list"><span class="toggle-list-text">Show List</span><span class="arrow-right">►</span></span>
+        </button>
+        <div id="page-content-wrapper">
+            <header>
+                <div class="hamburger-icon-wrapper">
+                    <div class="hamburger-icon"></div>
+                </div>
+                <div class="header-label-wrapper">
+                    <h1 class="header-label">Tysons Tech Map</h1>
+                </div>
+                <div class="profile-wrapper">
+                    <!-- TODO: Font with profile picture -->
+                    <!-- TODO: Content changes depending on whether or not user is logged in or not -->
+                    <div class="profile" data-popover="true" data-content="
+                                <ul class='profile-action-list'>
+                                    <li><a href='editprofile.html'>Edit Profile</a></li>
+                                    <li><a href='#'>Sign Out</a></li>
+                                    <li><a href='admin.html'>Admin</a></li>
+                                </ul>
+                            ">
+                        <span>B</span>
+                    </div>
+                </div>
+            </header>
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-list-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-list-item"><a href="news.html" class="nav-link">News</a></li>
+                </ul>
+            </nav>
+            <main>
+                <div class="google-map-wrapper">
+                    <div class="google-map" id="googleMap"></div>
+                </div>
+            </main>
+        </div> <!-- page-content-wrapper -->
+    </div> <!-- wrapper -->
+
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/libs/knockout-3.2.0.js"></script>
+    <script src="js/mainmapscript.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDTYiGEY8-a21cTJc_X8gnCiBQCY4Vm988&callback=initMap&v=3" onerror="googleMapsError()"></script>
+    <script src="js/commonscript.js"></script>
+
+    <script>
+    $("#sidebar-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    </script>
+</body>
+</html>

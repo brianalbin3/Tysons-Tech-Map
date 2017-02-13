@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""> <!-- TODO: Should I even have this???  -->
+    <meta name="author" content="Brian Albin">
+    <title>Manage Companies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/commonstyles.css">
+    <link rel="stylesheet" href="css/commonformstyles.css">
+    <link rel="stylesheet" href="css/admintablestyles.css">
+    <link rel="stylesheet" href="css/managecompaniesstyles.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-icon-wrapper">
+            <div class="hamburger-icon" id="menu-toggle"></div>
+        </div>
+        <div class="header-label-wrapper">
+            <h1 class="header-label">Tysons Tech Map</h1>
+        </div>
+        <div class="profile-wrapper">
+            <!-- TODO: Font with profile picture -->
+            <!-- TODO: Content changes depending on whether or not user is logged in or not -->
+            <div class="profile" data-popover="true" data-content="
+                <ul class='profile-action-list'>
+                    <li><a href='editprofile.html'>Edit Profile</a></li>
+                    <li><a href='#'>Sign Out</a></li>
+                    <li><a href='admin.html'>Admin</a></li>
+                </ul>
+                ">
+                <span>B</span>
+            </div>
+    </header>
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-list-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-list-item"><a href="news.html" class="nav-link">News</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1 class="admin-table-page-header">Manage Companies</h1>
+        <button id="add-item" class="std-btn add-item-btn"><div>Add Company</div></button>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>CompanyID</th>
+                    <th>Name</th>
+                    <th>Website</th>
+                    <th>Logo</th>
+                    <th>Addresses</th>
+                    <th>X</th>
+                    <th>E</th>
+                </thead>
+                <tbody data-bind="foreach: companies">
+                    <tr>
+                        <td>
+                            <span data-bind="visible: $data != $root.selectedCompanyToEdit()" class="table-span">
+                                <span data-bind="text: companyId"></span>
+                            </span>
+                            <input readonly class="table-input" type="text" data-bind="textInput: companyId, visible: $data == $root.selectedCompanyToEdit()">
+                        </td>
+                        <td>
+                            <span data-bind="visible: $data != $root.selectedCompanyToEdit()" class="table-span">
+                                <span data-bind="text: name"></span>
+                            </span>
+                            <span data-bind="visible: $data == $root.selectedCompanyToEdit()">
+                                <input class="table-input" type="text" data-bind="textInput: name">
+                            </span>
+                        </td>
+                        <td>
+                            <span data-bind="visible: $data != $root.selectedCompanyToEdit()" class="table-span">
+                                <span data-bind="text: webSite"></span>
+                            </span>
+                            <span data-bind="visible: $data == $root.selectedCompanyToEdit()">
+                                <input class="table-input" type="text" data-bind="textInput: webSite">
+                            </span>
+                        </td>
+                        <td>
+                            <span data-bind="visible: $data != $root.selectedCompanyToEdit()" class="table-span">
+                                <span data-bind="text: logoImageFile"></span>
+                            </span>
+                            <span data-bind="visible: $data == $root.selectedCompanyToEdit()">
+                                <input class="table-input" type="text" data-bind="textInput: logoImageFile">
+                            </span>
+                        </td>
+                        <td>
+                            <button class="admin-table-btn">View Addresses</button>
+                        </td>
+                        <td>
+                            <button class="admin-table-btn delete-item-btn" data-bind="click: $root.deleteCompany"></button>
+                        </td>
+                        <td>
+                            <button class="admin-table-btn edit-item-btn" data-bind="click: $root.editCompany">E</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> <!-- table-container -->
+    </main>
+    <div class="gray-out"></div>
+    <div class="add-item-menu">
+        <div class="form-container">
+            <h1 class="form-header">Add Company</h1>
+            <form>
+                <fieldset>
+                    <div class="legend-container">
+                        <legend>Company Information</legend>
+                    </div>
+                    <input type="text" name="companyName" placeholder="Company Name" required autofocus class="common-txt-input">
+                    <input type="text" name="website" placeholder="Web Site" required class="common-txt-input">
+                    <input type="text" name="Logo" placeholder="Logo Image File" class="common-txt-input">
+                </fieldset>
+                <fieldset>
+                    <div class="legend-container">
+                        <legend>Address</legend>
+                    </div>
+                    <input type="text" name="addressStreetNo" placeholder="Street Number" required class="common-txt-input">
+                    <input type="text" name="addressStreetName" placeholder="Street Name" required class="common-txt-input">
+                    <input type="text" name="Ste." placeholder="Suite Number" required class="common-txt-input">
+                    <input type="text" name="addressCity" placeholder="City" required class="common-txt-input">
+                    <input type="text" name="addressZip" placeholder="Zip Code" required class="common-txt-input">
+                </fieldset>
+                <button class="std-btn submit-btn">
+                    <div>Done</div>
+                </button>
+            </form>
+            <button id="cancel" class="std-btn submit-btn cancel-btn">
+                <div>Cancel</div>
+            </button>
+        </div> <!-- form-container -->
+    </div> <!-- add-item-menu -->
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/libs/knockout-3.2.0.js"></script>
+    <script src="js/commonscript.js"></script>
+        <script src="js/managecompaniesscript.js"></script>
+    <script>
+        function toggleMenu() {
+            $(".add-item-menu").toggleClass("toggled");
+            $(".gray-out").toggleClass("toggled");
+        }
+
+        $("#add-item").click(function() { toggleMenu(); });
+        $("#cancel").click(function() { toggleMenu(); });
+    </script>
+</body>
+</html>
