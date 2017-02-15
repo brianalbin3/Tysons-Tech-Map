@@ -1,7 +1,12 @@
+// TODO: ONLY USE SINGLE QUOTES FOR JAVASCRIPT?
+// TODO: CHECKBOXES
+// TODO: Use knockout visible instead of toggleMenu
+
 /**
  * A user of this site
  * @param {string} userId The id of this user in the database
  * @param {string} email The email address of this user
+ * @param {string} password The password of this user
  * @param {string} firstName User's first name
  * @param {string} lastName User's last name
  * @param {string} streetNo Street number of this user's address
@@ -12,9 +17,10 @@
  * @param {boolean} isUserAdmin If the user is admin of users (can add/delete/modify users)
  * @param {boolean} isNewsAdmin If the user is admin of News (TODO)
  */
-function User(userId, email, firstName, lastName, streetNo, streetName, city, state, zip, isUserAdmin, isNewsAdmin) {
+function User(userId, email, password, firstName, lastName, streetNo, streetName, city, state, zip, isUserAdmin, isNewsAdmin) {
     this.userId = ko.observable(userId);
     this.email = ko.observable(email);
+    this.password = ko.observable(password);
     this.firstName = ko.observable(firstName);
     this.lastName = ko.observable(lastName);
     this.streetNo = ko.observable(streetNo);
@@ -28,18 +34,21 @@ function User(userId, email, firstName, lastName, streetNo, streetName, city, st
 
 
 //TODO Validation
+//TODO
 
 
 function UserListViewModel() {
     var self = this;
 
     self.users = ko.observableArray([
-        new User(1, "brianalbin3@gmail.com", "Brian", "Albin", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", true, true ),
-        new User(2, "lucidrain929@gmail.com", "Yuzhong", "Chen", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", false, false )
+        new User(1, "brianalbin3@gmail.com", "123456", "Brian", "Albin", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", true, true ),
+        new User(2, "lucidrain929@gmail.com", "123456", "Yuzhong", "Chen", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", false, false )
     ]);
 
     self.selectedUserToEdit = ko.observable();
-    self.newUser = ko.observable();
+    self.newUser = ko.observable( new User() );
+
+    self.availableStates = ko.observableArray(["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Masachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma","Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]);
 
    /**
     * Deletes a user
@@ -52,21 +61,9 @@ function UserListViewModel() {
    /**
     * Add a user.
     */
-    self.addUser = function() {
-        /*
-        // TODO: Is there a better way to do this?
-        self.users.push( new User(-1,
-                                   $("input[name=email]").val(),
-                                   $("input[name=firstName]").val(),
-                                   $("input[name=lastName]").val(),
-                                   $("input[name=addressStreetNo]").val(),
-                                   $("input[name=addressStreetName]").val(),
-                                   $("input[name=addressCity]").val(),
-                                   $("select[name=addressState]").val(),
-                                   $("input[name=addressZip]").val(),
-                                   $("input[name=isUserAdminCheckbox]").is(':checked'),
-                                   $("input[name=isNewsAdminCheckbox]").is(':checked') ) );
-        */
+    self.addUser = function(user) {
+        self.users.push( ko.utils.unwrapObservable(self.newUser()) );
+        self.newUser( new User() );
         toggleMenu();
     };
 

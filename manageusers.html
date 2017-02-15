@@ -48,6 +48,7 @@
                 <thead>
                     <th>UserID</th>
                     <th>Email</th>
+                    <th>Password</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Street No</th>
@@ -74,6 +75,14 @@
                             </span>
                             <span data-bind="visible: $data == $root.selectedUserToEdit()">
                                 <input class="table-input" type="text" data-bind="textInput: email">
+                            </span>
+                        </td>
+                        <td>
+                            <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
+                                <span data-bind="text: password"></span>
+                            </span>
+                            <span data-bind="visible: $data == $root.selectedUserToEdit()">
+                                <input class="table-input" type="text" data-bind="textInput: password">
                             </span>
                         </td>
                         <td>
@@ -139,29 +148,29 @@
     <div class="add-item-menu">
         <div class="form-container">
             <h1 class="form-header">Add User</h1>
-            <form data-bind="submit: addUser">
+            <form data-bind="submit: $root.addUser, with: newUser">
                 <fieldset>
                     <div class="legend-container">
                         <legend>Email & Password</legend>
                     </div>
-                    <input type="email" name="email" placeholder="Email Address" required autofocus class="common-txt-input">
-                    <input type="password" name="password" placeholder="Password" required class="common-txt-input">
+                    <input data-bind="value: email" type="email" name="email" placeholder="Email Address" required autofocus class="common-txt-input">
+                    <input data-bind="value: password" type="password" name="password" placeholder="Password" required class="common-txt-input">
                 </fieldset>
                 <fieldset>
                     <div class="legend-container">
                         <legend>Name</legend>
                     </div>
-                    <input type="text" name="firstName" placeholder="First Name" required class="common-txt-input">
-                    <input type="text" name="lastName" placeholder="Last Name" required class="common-txt-input">
+                    <input data-bind="value: firstName" type="text" name="firstName" placeholder="First Name" required class="common-txt-input">
+                    <input data-bind="value: lastName" type="text" name="lastName" placeholder="Last Name" required class="common-txt-input">
                 </fieldset>
                 <fieldset>
                     <div class="legend-container">
                         <legend>Address (Optional)</legend>
                     </div>
-                    <input type="text" name="addressStreetNo" placeholder="Street Number" class="common-txt-input">
-                    <input type="text" name="addressStreetName" placeholder="Street Name" class="common-txt-input">
-                    <input type="text" name="addressCity" placeholder="City" class="common-txt-input">
-                    <select name="addressState" class="common-select">
+                    <input data-bind="value: streetNo" type="text" name="addressStreetNo" placeholder="Street Number" class="common-txt-input">
+                    <input data-bind="value: streetName" type="text" name="addressStreetName" placeholder="Street Name" class="common-txt-input">
+                    <input data-bind="value: city" type="text" name="addressCity" placeholder="City" class="common-txt-input">
+                    <select data-bind="" name="addressState" class="common-select">
                         <!-- TODO: What about washington DC? -->
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
@@ -222,14 +231,14 @@
                     </div>
                     <div>
                         <label class="checkbox-label" for="isUserAdminCheckbox">User Admin</label>
-                        <input name="isUserAdminCheckbox" id="isUserAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
+                        <input data-bind="" name="isUserAdminCheckbox" id="isUserAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
                     </div>
                     <div>
                         <label class="checkbox-label" for="isNewsAdminCheckbox">News Admin</label>
-                        <input name="isNewsAdminCheckbox" id="isNewsAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
+                        <input data-bind="" name="isNewsAdminCheckbox" id="isNewsAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
                     </div>
                 </fieldset>
-                <button type="submit" data-bind="submit: addUser" class="std-btn submit-btn">
+                <button type="submit" data-bind="" class="std-btn submit-btn">
                     <div>Done</div>
                 </button>
             </form>
@@ -243,6 +252,7 @@
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/commonscript.js"></script>
     <script>
+        // TODO: MOVE INTO KNOCKOUT
         function toggleMenu() {
             $(".add-item-menu").toggleClass("toggled");
             $(".gray-out").toggleClass("toggled");
