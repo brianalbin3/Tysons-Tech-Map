@@ -1,3 +1,5 @@
+
+// TODO: Validation
 // TODO: ONLY USE SINGLE QUOTES FOR JAVASCRIPT?
 // TODO: CHECKBOXES
 // TODO: Use knockout visible instead of toggleMenu
@@ -31,10 +33,6 @@ function User(userId, email, password, firstName, lastName, streetNo, streetName
     this.isUserAdmin = ko.observable(isUserAdmin);
     this.isNewsAdmin = ko.observable(isNewsAdmin);
 };
-
-
-//TODO Validation
-//TODO
 
 
 function UserListViewModel() {
