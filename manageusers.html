@@ -42,7 +42,7 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Users</h1>
-        <button id="add-item" class="std-btn add-item-btn"><div>Add User</div></button>
+        <button data-bind="click: setAddingUser" id="add-item" class="std-btn add-item-btn"><div>Add User</div></button>
         <div class="table-container">
             <table>
                 <thead>
@@ -144,8 +144,8 @@
             </table>
         </div> <!-- table-container -->
     </main>
-    <div class="gray-out"></div>
-    <div class="add-item-menu">
+    <div data-bind="visible: $root.addingUser()" class="gray-out"></div>
+    <div data-bind="visible: $root.addingUser()" class="add-item-menu">
         <div class="form-container">
             <h1 class="form-header">Add User</h1>
             <form data-bind="submit: $root.addUser, with: newUser">
@@ -187,11 +187,11 @@
                         <input data-bind="checked: isNewsAdmin" name="isNewsAdminCheckbox" id="isNewsAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
                     </div>
                 </fieldset>
-                <button type="submit" data-bind="" class="std-btn submit-btn">
+                <button type="submit" class="std-btn submit-btn">
                     <div>Done</div>
                 </button>
             </form>
-            <button id="cancel" class="std-btn submit-btn cancel-btn">
+            <button data-bind="click: unsetAddingUser" id="cancel" class="std-btn submit-btn cancel-btn">
                 <div>Cancel</div>
             </button>
         </div> <!-- form-container -->
@@ -201,6 +201,7 @@
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/commonscript.js"></script>
     <script>
+    /*
         // TODO: MOVE INTO KNOCKOUT
         function toggleMenu() {
             $(".add-item-menu").toggleClass("toggled");
@@ -209,6 +210,7 @@
 
         $("#add-item").click(function() { toggleMenu(); });
         $("#cancel").click(function() { toggleMenu(); });
+    */
     </script>
     <script src="js/manageusersscript.js"></script>
 </body>
