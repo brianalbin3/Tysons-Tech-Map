@@ -36,8 +36,8 @@ function CompanyListViewModel() {
     var self = this;
 
     self.companies = ko.observableArray([
-        new Company(1, "Booz Allen Hamilton", "www.boozallen.com", "TODO", "283", "Greensboro Dr", "McLean", "Virginia", "22102"  ),
-        new Company(2, "SAIC", "www.saic.com", "TODO", "1710", "SAIC Dr", "McLean", "Virginia", "22102" )
+        new Company(1, 'Booz Allen Hamilton', 'www.boozallen.com', 'TODO', '283', 'Greensboro Dr', 'McLean', 'Virginia', '22102'  ),
+        new Company(2, 'SAIC', 'www.saic.com', 'TODO', '1710', 'SAIC Dr', 'McLean', 'Virginia', '22102' )
     ]);
 
     self.selectedCompanyToEdit = ko.observable();

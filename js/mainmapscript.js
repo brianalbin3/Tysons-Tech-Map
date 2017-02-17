@@ -67,7 +67,7 @@ var FourSquareLocationInfo = function(name, city, state) {
  * @return {String} A the phone number in the format (410) 799-5959
  */
 FourSquareLocationInfo.prototype.getFormattedPhoneNumber = function() {
-    return "(" + this.phone.substring(0,3) + ") " + this.phone.substring(3,6) + "-" + this.phone.substring(6,10);
+    return '(' + this.phone.substring(0,3) + ') ' + this.phone.substring(3,6) + '-' + this.phone.substring(6,10);
 };
 
 var LocationModel = function() {
@@ -148,7 +148,7 @@ var Map = function(containerId) {
 
     this.container = document.getElementById(containerId);
     this.map;
-    this.infoWindow = new google.maps.InfoWindow( { content: "" } );
+    this.infoWindow = new google.maps.InfoWindow( { content: '' } );
 
     this._DESELECTED_MARKER_ICON = 'https://www.google.com/mapfiles/marker.png';
     this._SELECTED_MARKER_ICON = 'https://www.google.com/mapfiles/marker_green.png';
@@ -328,7 +328,7 @@ Map.prototype._createMapMarker = function(result, location) {
                                         infoWindowContent += location.fourSquareInfo.categories[i];
 
                                         if (i !== numCategories - 1) {
-                                            infoWindowContent += ", ";
+                                            infoWindowContent += ', ';
                                         }
                                     }
             infoWindowContent +=    '</span>';

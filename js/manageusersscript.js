@@ -38,8 +38,8 @@ function UserListViewModel() {
     var self = this;
 
     self.users = ko.observableArray([
-        new User(1, "brianalbin3@gmail.com", "123456", "Brian", "Albin", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", true, true ),
-        new User(2, "lucidrain929@gmail.com", "123456", "Yuzhong", "Chen", "6793", "Old Waterloo Road", "Elkridge", "Maryland", "21075", false, false )
+        new User(1, 'brianalbin3@gmail.com', '123456', 'Brian', 'Albin', '6793', 'Old Waterloo Road', 'Elkridge', 'Maryland', '21075', true, true ),
+        new User(2, 'lucidrain929@gmail.com', '123456', 'Yuzhong', 'Chen', '6793', 'Old Waterloo Road', 'Elkridge', 'Maryland', '21075', false, false )
     ]);
 
     self.selectedUserToEdit = ko.observable();
@@ -47,7 +47,7 @@ function UserListViewModel() {
 
     self.newUser = ko.observable( new User() );
 
-    self.availableStates = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Masachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma","Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+    self.availableStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Masachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma','Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
    /**
     * Deletes a user
