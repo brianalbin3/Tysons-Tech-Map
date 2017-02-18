@@ -42,7 +42,7 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Companies</h1>
-        <button id="add-item" class="std-btn add-item-btn"><div>Add Company</div></button>
+        <button data-bind="click: setAddingCompany"  id="add-item" class="std-btn add-item-btn"><div>Add Company</div></button>
         <div class="table-container">
             <table>
                 <thead>
@@ -100,11 +100,11 @@
             </table>
         </div> <!-- table-container -->
     </main>
-    <div class="gray-out"></div>
-    <div class="add-item-menu">
+    <div data-bind="visible: $root.addingCompany()" class="gray-out"></div>
+    <div data-bind="visible: $root.addingCompany()" class="add-item-menu">
         <div class="form-container">
             <h1 class="form-header">Add Company</h1>
-            <form>
+            <form data-bind="with: newCompany">
                 <fieldset>
                     <div class="legend-container">
                         <legend>Company Information</legend>
@@ -127,7 +127,7 @@
                     <div>Done</div>
                 </button>
             </form>
-            <button id="cancel" class="std-btn submit-btn cancel-btn">
+            <button data-bind="click: unsetAddingCompany" id="cancel" class="std-btn submit-btn cancel-btn">
                 <div>Cancel</div>
             </button>
         </div> <!-- form-container -->
@@ -136,15 +136,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/commonscript.js"></script>
-        <script src="js/managecompaniesscript.js"></script>
-    <script>
-        function toggleMenu() {
-            $(".add-item-menu").toggleClass("toggled");
-            $(".gray-out").toggleClass("toggled");
-        }
-
-        $("#add-item").click(function() { toggleMenu(); });
-        $("#cancel").click(function() { toggleMenu(); });
-    </script>
+    <script src="js/managecompaniesscript.js"></script>
 </body>
 </html>

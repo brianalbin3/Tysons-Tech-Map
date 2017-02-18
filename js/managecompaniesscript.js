@@ -42,9 +42,12 @@ function CompanyListViewModel() {
 
     self.selectedCompanyToEdit = ko.observable();
 
+    self.addingCompany = ko.observable(false);
+    self.newCompany = ko.observable( new Company() );
+
    /**
     * Deletes a company
-    * @param {Company} user The company to delete
+    * @param {Company} company The company to delete
     */
     self.deleteCompany = function(company) {
 
@@ -53,22 +56,46 @@ function CompanyListViewModel() {
             //TODO
         }
 
-        self.users.remove( company );
+        self.companies.remove( company );
     };
 
-    //TODO: Add Company
+   /**
+    * Add a Company
+    */
+    self.addCompany = function(company) {
+        self.companies.push( ko.utils.unwrapObservable(self.newCompany()) );
+        self.newCompany( new Company() );
+
+        self.addingCompany(false);
+    };
 
    /**
     * Edit a company's data
-    * @param {Company} user The user whos data will be edited
+    * @param {Company} company The company whos data will be edited
     */
-    self.editCompany = function(user) {
-        if (company == ko.utils.unwrapObservable(self.selectedCompanyToEdit) ) {
+    self.editCompany = function(company) {
+        if (company == ko.utils.unwrapObservable(self.selectedCompanyToEdit()) ) {
             self.selectedCompanyToEdit(null);
         }
         else {
-            self.selectedCompanyToEdit(user);
+            self.selectedCompanyToEdit(company);
         }
+    };
+
+// TODO: Consider renaming two below functions
+
+   /**
+    * Sets addingCompany to true
+    */
+    self.setAddingCompany = function() {
+        self.addingCompany(true);
+    };
+
+   /**
+    * Sets addingCompany to false
+    */
+    self.unsetAddingCompany = function() {
+        self.addingCompany(false);
     };
 
 };
