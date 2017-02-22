@@ -169,7 +169,7 @@ main {
     color: white;
     border: 0;
     font-family: Georgia;
-    font-size: 15px;
+    font-size: 16px;
     height: 30px;
     display: block;
     margin-left: auto;
@@ -178,15 +178,8 @@ main {
 }
 
 .std-btn:active {
-    background-color: #02B3E4; /* TODO: Make this lighter or darker */
-    background-color: #028FB6; /* TODO: Make this lighter or darker */
+    background-color: #028FB6;
 }
-/*
-rgb(02,179,228)
-.8 = #028FB6
-.7 = #027D9F
-.5 = #015A72
-*/
 
 .std-btn:active div {
     bottom: 1px;
