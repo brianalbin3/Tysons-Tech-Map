@@ -74,8 +74,12 @@ main {
     text-align: center;
     font-weight: bolder;
     background-color: #F8981C;
+    /*background-color: #666;*/
     cursor: pointer;
     color: white;
+    /*color: #02B3E4;*/
+    font-family: Georgia;
+    font-size: 16px;
 }
 
 .popover {
@@ -161,7 +165,7 @@ main {
 
 .std-btn {
     border-radius: 3px;
-    background-color: black;
+    background-color: #02B3E4;
     color: white;
     border: 0;
     font-family: Georgia;
@@ -174,8 +178,15 @@ main {
 }
 
 .std-btn:active {
-    background-color: #111;
+    background-color: #02B3E4; /* TODO: Make this lighter or darker */
+    background-color: #028FB6; /* TODO: Make this lighter or darker */
 }
+/*
+rgb(02,179,228)
+.8 = #028FB6
+.7 = #027D9F
+.5 = #015A72
+*/
 
 .std-btn:active div {
     bottom: 1px;

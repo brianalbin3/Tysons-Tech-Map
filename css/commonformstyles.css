@@ -10,7 +10,7 @@
 }
 
 .form-header {
-    background-color: black;
+    background-color: #02B3E4;
     color: white;
     text-align: center;
     font-size: 24px;
@@ -22,20 +22,30 @@
     padding-bottom: 5px;
 }
 
+/* TODO: Maybe rename this? */
+.form-info {
+    background-color: #02B3E4;
+    font-size: 16px;
+    font-family: Georgia;
+    border: 1px solid #02B3E4;
+    padding: 5px;
+    color: #FFF;
+}
+
 fieldset {
     text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
     padding-top: 0;
     padding-bottom: 5px;
-    border: 1px solid black;
-    background-color: #DDD;
+    border: 1px solid #02B3E4;
+    background-color: #F3F3F3;
 }
 
 .legend-container {
     width: 100%;
     text-align: left;
-    background-color: black;
+    background-color: #02B3E4;
 }
 
 legend {
