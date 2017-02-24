@@ -33,10 +33,6 @@ table {
     width: 100%;
 }
 
-tr, thead {
-
-}
-
 td, th {
     border: 1px solid #eee; /* Same color as background */
     padding-left: 2px;
@@ -48,26 +44,16 @@ th {
     text-align: center;
     height: 40px;
     background-color: #F8981C;
-
-    background-image: -webkit-linear-gradient(top, #F8981C 0%, #D38118 100%);
-    background-image: -moz-linear-gradient(top, #F8981C 0%, #D38118 100%);
-    background-image: -o-linear-gradient(top, #F8981C 0%, #D38118 100%);
-    background-image: linear-gradient(top, #F8981C 0%, #D38118 100%);
-
-
+    background-image: -webkit-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: -moz-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: -o-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
     color: #FFF;
     font-size: 14px;
 }
 
-.table-span, .table-input {
-    /*height: 54px;*/
-}
-
-/* min-height and max-height don't work for table elements */
-
 td {
     background-color: #02B3E4;
-    background-color: ;
     height: 60px;
 }
 
@@ -82,8 +68,8 @@ td {
 .table-span > span {
     display: inline-block;
     vertical-align: middle;
-    line-height: 1em; /*set line height back to normal*/
-    color: #f4f4f4;
+    line-height: 1em; /* Set line height back to normal */
+    color: #F4F4F4;
 }
 
 .table-input {
@@ -98,7 +84,7 @@ input[type=checkbox] {
     height: 16px;
 }
 
-/* TODO: Can make this ALOT better */
+/* TODO: Can make this ALOT better */ /* Does anyone use this? */
 .admin-table-btn {
     color: black;
     font-weight: 900;
@@ -106,10 +92,6 @@ input[type=checkbox] {
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-.delete-item-btn:before {
-    content: '×';
 }
 
 .add-item-menu {
@@ -128,11 +110,6 @@ input[type=checkbox] {
     left: 0;
     background-color: rgba(80, 80, 80, .6);
     z-index: 2;
-}
-
-/* TODO: Does this belong here, or should I move to commonformstyles.css? */
-.cancel-btn {
-    margin-top: 5px;
 }
 
 @media screen and (max-width: 550px) {

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=""> <!-- TODO: Should I even have this???  -->
     <meta name="author" content="Brian Albin">
     <title>Manage Users</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -60,8 +59,8 @@
                         <th>Zip</th>
                         <th>User Admin</th>
                         <th>News Admin</th>
-                        <th>X</th>
-                        <th>E</th>
+                        <th><img width="20" height="20" src="img/trash-icon.svg" alt="Delete"></th>
+                        <th><img width="20" height="20" src="img/edit-icon.svg" alt="Edit"></th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: users">
@@ -137,10 +136,10 @@
                             <input class="table-input" type="checkbox" data-bind="checked: isNewsAdmin, disable: $data != $root.selectedUserToEdit()">
                         </td>
                         <td>
-                            <button class="delete-item-btn" data-bind="click: $root.deleteUser"></button>
+                            <button class="delete-item-btn" data-bind="click: $root.deleteUser"><img width="20" height="20" src="img/trash-icon.svg" alt="trash"></button>
                         </td>
                         <td>
-                            <button class="edit-item-btn" data-bind="click: $root.editUser">E</button>
+                            <button class="edit-item-btn" data-bind="click: $root.editUser"><img width="20" height="20" src="img/edit-icon.svg" alt="Edit"></button>
                         </td>
                     </tr>
                 </tbody>

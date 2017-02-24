@@ -96,6 +96,10 @@ legend {
     width: 100%;
 }
 
+.cancel-btn {
+    margin-top: 5px;
+}
+
 @media screen and (max-width:350px) {
     .form-container {
         -webkit-box-shadow: none;

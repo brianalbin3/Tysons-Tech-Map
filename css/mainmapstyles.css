@@ -40,10 +40,10 @@ body {
     box-shadow: 0 2px 6px rgba(0,0,0,.4);
     border-radius: 6px;
     background-color: #02B3E4;
-    background-image: -webkit-linear-gradient(top, #02B3E4 0%, #015A72 100%);
-    background-image: -moz-linear-gradient(top, #02B3E4 0%, #015A72 100%);
-    background-image: -o-linear-gradient(top, #02B3E4 0%, #015A72 100%);
-    background-image: linear-gradient(top, #02B3E4 0%, #015A72 100%);
+    background-image: -webkit-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
+    background-image: -moz-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
+    background-image: -o-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
+    background-image: linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
     color: white;
     border: 0;
     font-family: Georgia;
@@ -54,10 +54,10 @@ body {
 
 .sidebar-toggle-button:active {
     background-color: #028FB6;
-    background-image: -webkit-linear-gradient(top, #015A72 0%, #02B3E4 100%);
-    background-image: -moz-linear-gradient(top, #015A72 0%, #02B3E4 100%);
-    background-image: -o-linear-gradient(top, #015A72 0%, #02B3E4 100%);
-    background-image: linear-gradient(top, #015A72 0%, #02B3E4 100%);
+    background-image: -webkit-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
+    background-image: -moz-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
+    background-image: -o-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
+    background-image: linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
 }
 
 .sidebar-toggle-button:active span {
@@ -99,10 +99,6 @@ body {
 
 .arrow-right {
     margin-left: 6px;
-}
-
-main {
-
 }
 
 .google-map-wrapper {
