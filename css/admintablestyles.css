@@ -38,7 +38,7 @@ tr, thead {
 }
 
 td, th {
-    border: 3px solid #eee; /* Same color as background */
+    border: 1px solid #eee; /* Same color as background */
     padding-left: 2px;
     padding-right: 2px;
     font-family: Georgia;
@@ -47,8 +47,15 @@ td, th {
 th {
     text-align: center;
     height: 40px;
-    background-color: #c5c5c5;
-    color: #404040;
+    background-color: #F8981C;
+
+    background-image: -webkit-linear-gradient(top, #F8981C 0%, #D38118 100%);
+    background-image: -moz-linear-gradient(top, #F8981C 0%, #D38118 100%);
+    background-image: -o-linear-gradient(top, #F8981C 0%, #D38118 100%);
+    background-image: linear-gradient(top, #F8981C 0%, #D38118 100%);
+
+
+    color: #FFF;
     font-size: 14px;
 }
 
@@ -59,7 +66,8 @@ th {
 /* min-height and max-height don't work for table elements */
 
 td {
-    background-color: #505050;
+    background-color: #02B3E4;
+    background-color: ;
     height: 60px;
 }
 
