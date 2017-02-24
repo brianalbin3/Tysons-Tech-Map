@@ -33,6 +33,7 @@
                 ">
                 <span>B</span>
             </div>
+        </div>
     </header>
     <nav>
         <ul class="nav-list">
@@ -42,24 +43,26 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Users</h1>
-        <button data-bind="click: setAddingUser" id="add-item" class="std-btn add-item-btn"><div>Add User</div></button>
+        <button data-bind="click: setAddingUser" id="add-item" class="std-btn add-item-btn">Add User</button>
         <div class="table-container">
             <table>
                 <thead>
-                    <th>UserID</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Street No</th>
-                    <th>Street Name</th>
-                    <th>City</th>
-                    <th>State</td>
-                    <th>Zip</td>
-                    <th>User Admin</th>
-                    <th>News Admin</th>
-                    <th>X</th>
-                    <th>E</th>
+                    <tr>
+                        <th>UserID</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Street No</th>
+                        <th>Street Name</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>User Admin</th>
+                        <th>News Admin</th>
+                        <th>X</th>
+                        <th>E</th>
+                    </tr>
                 </thead>
                 <tbody data-bind="foreach: users">
                     <tr>
@@ -128,7 +131,7 @@
                             <input class="table-input" type="text" data-bind="value: zip, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td class="checkbox-table-cell">
-                            <input class="table-input" class="table-input" type="checkbox" data-bind="checked: isUserAdmin, disable: $data != $root.selectedUserToEdit()">
+                            <input class="table-input" type="checkbox" data-bind="checked: isUserAdmin, disable: $data != $root.selectedUserToEdit()">
                         </td>
                         <td class="checkbox-table-cell">
                             <input class="table-input" type="checkbox" data-bind="checked: isNewsAdmin, disable: $data != $root.selectedUserToEdit()">
@@ -187,31 +190,15 @@
                         <input data-bind="checked: isNewsAdmin" name="isNewsAdminCheckbox" id="isNewsAdminCheckbox" type="checkbox" class="form-checkbox checkbox-table-cell">
                     </div>
                 </fieldset>
-                <button type="submit" class="std-btn submit-btn">
-                    <div>Done</div>
-                </button>
+                <button type="submit" class="std-btn submit-btn">Done</button>
             </form>
-            <button data-bind="click: unsetAddingUser" id="cancel" class="std-btn submit-btn cancel-btn">
-                <div>Cancel</div>
-            </button>
+            <button data-bind="click: unsetAddingUser" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
         </div> <!-- form-container -->
     </div> <!-- add-user-menu -->
     <script src="js/libs/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/commonscript.js"></script>
-    <script>
-    /*
-        // TODO: MOVE INTO KNOCKOUT
-        function toggleMenu() {
-            $(".add-item-menu").toggleClass("toggled");
-            $(".gray-out").toggleClass("toggled");
-        }
-
-        $("#add-item").click(function() { toggleMenu(); });
-        $("#cancel").click(function() { toggleMenu(); });
-    */
-    </script>
     <script src="js/manageusersscript.js"></script>
 </body>
 </html>

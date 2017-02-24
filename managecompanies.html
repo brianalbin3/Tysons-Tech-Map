@@ -33,6 +33,7 @@
                 ">
                 <span>B</span>
             </div>
+        </div>
     </header>
     <nav>
         <ul class="nav-list">
@@ -42,17 +43,19 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Companies</h1>
-        <button data-bind="click: setAddingCompany"  id="add-item" class="std-btn add-item-btn"><div>Add Company</div></button>
+        <button data-bind="click: setAddingCompany"  id="add-item" class="std-btn add-item-btn">Add Company</button>
         <div class="table-container">
             <table>
                 <thead>
-                    <th>CompanyID</th>
-                    <th>Name</th>
-                    <th>Website</th>
-                    <th>Logo</th>
-                    <th>Addresses</th>
-                    <th>X</th>
-                    <th>E</th>
+                    <tr>
+                        <th>CompanyID</th>
+                        <th>Name</th>
+                        <th>Website</th>
+                        <th>Logo</th>
+                        <th>Addresses</th>
+                        <th>X</th>
+                        <th>E</th>
+                    </tr>
                 </thead>
                 <tbody data-bind="foreach: companies">
                     <tr>
@@ -123,13 +126,9 @@
                     <input type="text" name="addressCity" placeholder="City" required class="common-txt-input">
                     <input type="text" name="addressZip" placeholder="Zip Code" required class="common-txt-input">
                 </fieldset>
-                <button class="std-btn submit-btn">
-                    <div>Done</div>
-                </button>
+                <button class="std-btn submit-btn">Done</button>
             </form>
-            <button data-bind="click: unsetAddingCompany" id="cancel" class="std-btn submit-btn cancel-btn">
-                <div>Cancel</div>
-            </button>
+            <button data-bind="click: unsetAddingCompany" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
         </div> <!-- form-container -->
     </div> <!-- add-item-menu -->
     <script src="js/libs/jquery.min.js"></script>
