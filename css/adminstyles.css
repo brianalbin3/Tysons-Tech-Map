@@ -10,6 +10,7 @@ main {
 .admin-menu {
     min-width: 280px;
     color: white;
+    background-color: #F8981C;
     list-style-type: none;
     padding: 0;
     margin: 20px;
@@ -45,6 +46,9 @@ main {
     background-image: linear-gradient(top, #F8981C 0%, #D38118 100%);
     border-top: 1px solid #F8981C;
     border-bottom: 1px solid #D38118;
+    border-right: 1px solid #D38118;
+    border-left: 1px solid #D38118;
+    border-radius: 9px;
 }
 
 .admin-menu .menu-item:active {
