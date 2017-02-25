@@ -1,5 +1,4 @@
 // TODO: Validation
-// TODO: CHECKBOXES
 
 /**
  * A user of this site
@@ -40,19 +39,22 @@ function UserListViewModel() {
         new User(2, 'lucidrain929@gmail.com', '123456', 'Yuzhong', 'Chen', '6793', 'Old Waterloo Road', 'Elkridge', 'Maryland', '21075', false, false )
     ]);
 
-    self.selectedUserToDelete = ko.observable();
-    self.selectedUserToEdit = ko.observable();
-
     self.addingUser = ko.observable(false);
     self.newUser = ko.observable( new User() );
+
     self.confirmDeleteMenuOpen = ko.observable(false);
+    self.selectedUserToDelete = ko.observable(null); // TODO: Does this need to be observable?
+
+    self.confirmEditMenuOpen = ko.observable(false);
+    self.selectedUserToEditOldValues;
+    self.selectedUserToEdit = ko.observable(null);
 
     self.availableStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Masachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma','Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
    /**
     * Add a user
     */
-    self.addUser = function(user) {
+    self.addUser = function() {
         self.users.push( ko.utils.unwrapObservable(self.newUser()) );
         self.newUser( new User() );
 
@@ -60,8 +62,9 @@ function UserListViewModel() {
     };
 
    /**
-    * Called when the user presses the delete user button
+    * Called when the user presses the delete user button.
     * Closes the menu and deletes the selected user.
+    * @param {User} user The user to potentially delete
     */
     self.deleteUserButtonPressed = function(user) {
         self.selectedUserToDelete(user);
@@ -83,21 +86,71 @@ function UserListViewModel() {
     */
     self.confirmDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        self.users.remove( ko.utils.unwrapObservable(self.selectedUserToDelete())  );
+        self.users.remove( ko.utils.unwrapObservable(self.selectedUserToDelete()) );
     };
 
-
    /**
-    * Edit a user's data
-    * @param {User} user The user whos data will be edited
+    * Lets the user edit this user's values, or opens confirm save menu if this user is already being edited
+    * @param {User} user The user to edit
     */
-    self.editUser = function(user) {
-        if (user == ko.utils.unwrapObservable(self.selectedUserToEdit()) ) {
-            self.selectedUserToEdit(null);
-        }
-        else {
+    self.editUserButtonPressed = function(user) {
+
+        if ( self.selectedUserToEdit() == null ) {
+            // TODO: Is there a better way to copy the values?
+            self.selectedUserToEditOldValues = new User(ko.utils.unwrapObservable(user.userId()),
+                                                        ko.utils.unwrapObservable(user.email()),
+                                                        ko.utils.unwrapObservable(user.password()),
+                                                        ko.utils.unwrapObservable(user.firstName()),
+                                                        ko.utils.unwrapObservable(user.lastName()),
+                                                        ko.utils.unwrapObservable(user.streetNo()),
+                                                        ko.utils.unwrapObservable(user.streetName()),
+                                                        ko.utils.unwrapObservable(user.city()),
+                                                        ko.utils.unwrapObservable(user.state()),
+                                                        ko.utils.unwrapObservable(user.zip()),
+                                                        ko.utils.unwrapObservable(user.isUserAdmin()),
+                                                        ko.utils.unwrapObservable(user.isNewsAdmin()));
+
             self.selectedUserToEdit(user);
         }
+        else if ( self.selectedUserToEdit() == user ) {
+            self.confirmEditMenuOpen(true);
+        }
+        else if ( self.selectedUserToEdit() != user )
+        {
+            // TODO: What do I want it to do? Maybe nothing?
+        }
+    };
+
+   /**
+    * Closes the confirm edit changes menu and saves the user's new values
+    */
+    self.confirmEditSelectedUserButtonPressed = function() {
+        self.selectedUserToEditOldValues = null;
+        self.selectedUserToEdit(null);
+        self.confirmEditMenuOpen(false);
+    };
+
+   /**
+    * Closes the confirm edit changes menu and resets user's values to what they were before
+    */
+    self.cancelEditSelectedUserButtonPressed = function() {
+        // TODO: Is there a better way to copy the values?
+        self.selectedUserToEdit().email( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.email) );
+        self.selectedUserToEdit().password( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.password) );
+        self.selectedUserToEdit().firstName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.firstName) );
+        self.selectedUserToEdit().lastName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.lastName) );
+        self.selectedUserToEdit().streetNo( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.streetNo) );
+        self.selectedUserToEdit().streetName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.streetName) );
+        self.selectedUserToEdit().city( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.city) );
+        self.selectedUserToEdit().state( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.state) );
+        self.selectedUserToEdit().zip( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.zip) );
+        self.selectedUserToEdit().isUserAdmin( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.isUserAdmin) );
+        self.selectedUserToEdit().isNewsAdmin( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.isNewsAdmin) );
+
+        self.selectedUserToEditOldValues = null;
+        self.selectedUserToEdit(null);
+        self.confirmEditMenuOpen(false);
+
     };
 
 // TODO: Consider renaming two below functions
