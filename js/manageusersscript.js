@@ -1,7 +1,5 @@
 // TODO: Validation
-// TODO: ONLY USE SINGLE QUOTES FOR JAVASCRIPT?
 // TODO: CHECKBOXES
-// TODO: Use knockout visible instead of toggleMenu
 
 /**
  * A user of this site
@@ -42,20 +40,14 @@ function UserListViewModel() {
         new User(2, 'lucidrain929@gmail.com', '123456', 'Yuzhong', 'Chen', '6793', 'Old Waterloo Road', 'Elkridge', 'Maryland', '21075', false, false )
     ]);
 
+    self.selectedUserToDelete = ko.observable();
     self.selectedUserToEdit = ko.observable();
 
     self.addingUser = ko.observable(false);
     self.newUser = ko.observable( new User() );
+    self.confirmDeleteMenuOpen = ko.observable(false);
 
     self.availableStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Masachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma','Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-
-   /**
-    * Deletes a user
-    * @param {User} user The user to delete
-    */
-    self.deleteUser = function(user) {
-        self.users.remove( user );
-    };
 
    /**
     * Add a user
@@ -66,6 +58,34 @@ function UserListViewModel() {
 
         self.addingUser(false);
     };
+
+   /**
+    * Called when the user presses the delete user button
+    * Closes the menu and deletes the selected user.
+    */
+    self.deleteUserButtonPressed = function(user) {
+        self.selectedUserToDelete(user);
+        self.confirmDeleteMenuOpen(true);
+    }
+
+   /**
+    * Called when the user presses the cancel button on the confirm delete user menu.
+    * Closes the confirm delete user menu
+    */
+    self.cancelDeleteSelectedUserButtonPressed = function() {
+        self.confirmDeleteMenuOpen(false);
+        self.selectedUserToDelete(null);
+    };
+
+   /**
+    * Called when the user presses the confirm button on the confirm delete user menu.
+    * Closes the menu and deletes the selected user.
+    */
+    self.confirmDeleteSelectedUserButtonPressed = function() {
+        self.confirmDeleteMenuOpen(false);
+        self.users.remove( ko.utils.unwrapObservable(self.selectedUserToDelete())  );
+    };
+
 
    /**
     * Edit a user's data

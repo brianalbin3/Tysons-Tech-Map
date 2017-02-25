@@ -136,10 +136,10 @@
                             <input class="table-input" type="checkbox" data-bind="checked: isNewsAdmin, disable: $data != $root.selectedUserToEdit()">
                         </td>
                         <td>
-                            <button class="delete-item-btn" data-bind="click: $root.deleteUser"><img width="20" height="20" src="img/trash-icon.svg" alt="trash"></button>
+                            <button class="delete-item-btn" data-bind="click: $root.deleteUserButtonPressed"></button>
                         </td>
                         <td>
-                            <button class="edit-item-btn" data-bind="click: $root.editUser"><img width="20" height="20" src="img/edit-icon.svg" alt="Edit"></button>
+                            <button class="edit-item-btn" data-bind="click: $root.editUser"></button>
                         </td>
                     </tr>
                 </tbody>
@@ -194,6 +194,18 @@
             <button data-bind="click: unsetAddingUser" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
         </div> <!-- form-container -->
     </div> <!-- add-user-menu -->
+    <div data-bind="visible: $root.confirmDeleteMenuOpen" class="gray-out"></div>
+    <div data-bind="visible: $root.confirmDeleteMenuOpen" class="confirm-delete-menu">
+        <div class="form-container">
+            <h1 class="form-header">Confirm Delete</h1>
+            <div style="background-color: #02B3E4; text-align: center;"> <!-- TODO: Move to stylesheet -->
+                <img class="large-trash-icon" src="img/trash-icon-orange.svg" alt="Trash" width="150" height="150">
+            </div>
+            <p class="form-info">Are you sure you want to delete this user? This action cannot be undone.</p>
+            <button data-bind="click: $root.confirmDeleteSelectedUserButtonPressed" type="submit" class="std-btn submit-btn">Confirm</button>
+            <button data-bind="click: $root.cancelDeleteSelectedUserButtonPressed" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
+        </div>
+    </div>
     <script src="js/libs/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
