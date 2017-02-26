@@ -13,7 +13,7 @@
  * @param {string} state State of this user's address
  * @param {string} zip Zip code of this user's address (5 character string)
  * @param {boolean} isUserAdmin If the user is admin of users (can add/delete/modify users)
- * @param {boolean} isNewsAdmin If the user is admin of News (TODO)
+ * @param {boolean} isNewsAdmin If the user is admin of News
  */
 function User(userId, email, password, firstName, lastName, streetNo, streetName, city, state, zip, isUserAdmin, isNewsAdmin) {
     this.userId = ko.observable(userId);
@@ -30,6 +30,29 @@ function User(userId, email, password, firstName, lastName, streetNo, streetName
     this.isNewsAdmin = ko.observable(isNewsAdmin);
 };
 
+/**
+ * Checks if this user's values are equal to another user's values
+ * @param {User} Determines if this user's properties are equal the user passed in
+ * @return true if the two users have equal properties, false otherwise
+ */
+User.prototype.equals = function(otherUser) {
+    if ( ko.utils.unwrapObservable(this.userId) === ko.utils.unwrapObservable(otherUser.userId) &&
+         ko.utils.unwrapObservable(this.email) === ko.utils.unwrapObservable(otherUser.email) &&
+         ko.utils.unwrapObservable(this.password) === ko.utils.unwrapObservable(otherUser.password) &&
+         ko.utils.unwrapObservable(this.firstName) === ko.utils.unwrapObservable(otherUser.firstName) &&
+         ko.utils.unwrapObservable(this.lastName) === ko.utils.unwrapObservable(otherUser.lastName) &&
+         ko.utils.unwrapObservable(this.streetNo) === ko.utils.unwrapObservable(otherUser.streetNo) &&
+         ko.utils.unwrapObservable(this.streetName) === ko.utils.unwrapObservable(otherUser.streetName) &&
+         ko.utils.unwrapObservable(this.city) === ko.utils.unwrapObservable(otherUser.city) &&
+         ko.utils.unwrapObservable(this.state) === ko.utils.unwrapObservable(otherUser.state) &&
+         ko.utils.unwrapObservable(this.zip) === ko.utils.unwrapObservable(otherUser.zip) &&
+         ko.utils.unwrapObservable(this.isUserAdmin) === ko.utils.unwrapObservable(otherUser.isUserAdmin) &&
+         ko.utils.unwrapObservable(this.isNewsAdmin) === ko.utils.unwrapObservable(otherUser.isNewsAdmin) ) {
+        return true;
+    }
+
+    return false;
+};
 
 function UserListViewModel() {
     var self = this;
@@ -129,12 +152,19 @@ function UserListViewModel() {
 
             self.selectedUserToEdit(user);
         }
-        else if ( self.selectedUserToEdit() == user ) {
+        else if ( self.selectedUserToEdit() == user && ko.utils.unwrapObservable(self.selectedUserToEdit).equals(self.selectedUserToEditOldValues) === false ) {
             self.confirmEditMenuOpen(true);
+        }
+        else if ( self.selectedUserToEdit() == user && ko.utils.unwrapObservable(self.selectedUserToEdit).equals(self.selectedUserToEditOldValues) === true ) {
+            self.selectedUserToEditOldValues = null;
+            self.selectedUserToEdit(null);
         }
         else if ( self.selectedUserToEdit() != user )
         {
             // TODO: What do I want it to do? Maybe nothing?
+        }
+        else {
+            console.log("doh");
         }
     };
 
