@@ -52,8 +52,8 @@
                         <th>Website</th>
                         <th>Logo</th>
                         <th>Addresses</th>
-                        <th>X</th>
-                        <th>E</th>
+                        <th><img width="20" height="20" src="img/trash-icon.svg" alt="Delete"></th>
+                        <th><img width="20" height="20" src="img/edit-icon.svg" alt="Edit"></th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: companies">
@@ -92,10 +92,10 @@
                             <button class="admin-table-btn">View Addresses</button>
                         </td>
                         <td>
-                            <button class="admin-table-btn delete-item-btn" data-bind="click: $root.deleteCompany"></button>
+                            <button class="delete-item-btn" data-bind="click: $root.deleteCompanyButtonPressed"></button>
                         </td>
                         <td>
-                            <button class="admin-table-btn edit-item-btn" data-bind="click: $root.editCompany">E</button>
+                            <button class="edit-item-btn" data-bind="click: $root.editCompanyButtonPressed"></button>
                         </td>
                     </tr>
                 </tbody>
@@ -130,6 +130,30 @@
             <button data-bind="click: unsetAddingCompany" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
         </div> <!-- form-container -->
     </div> <!-- add-item-menu -->
+    <div data-bind="visible: $root.confirmDeleteMenuOpen" class="gray-out"></div>
+    <div data-bind="visible: $root.confirmDeleteMenuOpen" class="confirm-menu">
+        <div class="form-container">
+            <h1 class="form-header">Confirm Delete</h1>
+            <div class="large-modify-icon-container">
+                <img class="large-modify-icon" src="img/trash-icon-orange.svg" alt="Trash" width="150" height="150">
+            </div>
+            <p class="form-info">Are you sure you want to delete this company? This action cannot be undone.</p>
+            <button data-bind="click: $root.confirmDeleteSelectedCompanyButtonPressed" type="submit" class="std-btn submit-btn">Delete</button>
+            <button data-bind="click: $root.cancelDeleteSelectedCompanyButtonPressed" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+    <div data-bind="visible: $root.confirmEditMenuOpen" class="gray-out"></div>
+    <div data-bind="visible: $root.confirmEditMenuOpen" class="confirm-menu">
+        <div class="form-container">
+            <h1 class="form-header">Confirm Edit</h1>
+            <div class="large-modify-icon-container">
+                <img class="large-modify-icon" src="img/edit-icon-orange.svg" alt="Edit" width="150" height="150">
+            </div>
+            <p class="form-info">Do you wish to save your changes?</p>
+            <button data-bind="click: $root.confirmEditSelectedCompanyButtonPressed" type="submit" class="std-btn submit-btn">Save</button>
+            <button data-bind="click: $root.cancelEditSelectedCompanyButtonPressed" id="cancel" class="std-btn submit-btn cancel-btn">Cancel</button>
+        </div>
+    </div>
     <script src="js/libs/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>

@@ -61,6 +61,22 @@ function UserListViewModel() {
         self.addingUser(false);
     };
 
+// TODO: Consider renaming two below functions
+
+   /**
+    * Sets addingUser to true
+    */
+    self.setAddingUser = function() {
+        self.addingUser(true);
+    };
+
+   /**
+    * Sets addingUser to false
+    */
+    self.unsetAddingUser = function() {
+        self.addingUser(false);
+    };
+
    /**
     * Called when the user presses the delete user button.
     * Closes the menu and deletes the selected user.
@@ -90,7 +106,8 @@ function UserListViewModel() {
     };
 
    /**
-    * Lets the user edit this user's values, or opens confirm save menu if this user is already being edited
+    * Called when the edit user button is pressed.
+    * Lets the user edit this companys's values, or opens confirm save menu if this user is already being edited
     * @param {User} user The user to edit
     */
     self.editUserButtonPressed = function(user) {
@@ -151,22 +168,6 @@ function UserListViewModel() {
         self.selectedUserToEdit(null);
         self.confirmEditMenuOpen(false);
 
-    };
-
-// TODO: Consider renaming two below functions
-
-   /**
-    * Sets addingUser to true
-    */
-    self.setAddingUser = function() {
-        self.addingUser(true);
-    };
-
-   /**
-    * Sets addingUser to false
-    */
-    self.unsetAddingUser = function() {
-        self.addingUser(false);
     };
 }
 
