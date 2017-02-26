@@ -163,9 +163,6 @@ function UserListViewModel() {
         {
             // TODO: What do I want it to do? Maybe nothing?
         }
-        else {
-            console.log("doh");
-        }
     };
 
    /**

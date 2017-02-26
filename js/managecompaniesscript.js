@@ -75,6 +75,24 @@ Company.prototype.copy = function(otherCompany) {
     }
 };
 
+/**
+ * Checks if this company's non-address values are equal to another company's non-address values
+ * @param {Company} The company to compare this company's non address values to
+ * @return true if the two companies have equal non-address properties, false otherwise
+ */
+Company.prototype.hasSameNonAddressValues = function(otherCompany) {
+
+        if ( ko.utils.unwrapObservable(this.companyId) === ko.utils.unwrapObservable(otherCompany.companyId) &&
+            ko.utils.unwrapObservable(this.name) === ko.utils.unwrapObservable(otherCompany.name) &&
+            ko.utils.unwrapObservable(this.webSite) === ko.utils.unwrapObservable(otherCompany.webSite) &&
+            ko.utils.unwrapObservable(this.logoImageFile) === ko.utils.unwrapObservable(otherCompany.logoImageFile) ) {
+
+            return true;
+        }
+
+        return false;
+};
+
 function CompanyListViewModel() {
     var self = this;
 
@@ -162,8 +180,12 @@ function CompanyListViewModel() {
 
             self.selectedCompanyToEdit(company);
         }
-        else if ( self.selectedCompanyToEdit() == company ) {
+        else if ( self.selectedCompanyToEdit() == company && ko.utils.unwrapObservable(self.selectedCompanyToEdit).hasSameNonAddressValues(self.selectedCompanyToEditOldValues) === false  ) {
             self.confirmEditMenuOpen(true);
+        }
+        else if ( self.selectedCompanyToEdit() == company && ko.utils.unwrapObservable(self.selectedCompanyToEdit).hasSameNonAddressValues(self.selectedCompanyToEditOldValues) === true ) {
+            self.selectedCompanyToEditOldValues = null;
+            self.selectedCompanyToEdit(null);
         }
         else if ( self.selectedCompanyToEdit() != company )
         {
