@@ -211,38 +211,17 @@ function CompanyListViewModel() {
         self.selectedCompanyToEdit(null);
         self.confirmEditMenuOpen(false);
     };
-/*
-    self.editButtonClass = function(company) {
 
-    };
-*/
-
-
-/*
-    self.getEditButtonClass = function(company) {
-        console.log(company)
-        return ko.computed(function() {
-            console.log(company)
-            return "edit-item-btn";
-        });
-    };
-*/
-
-
-
+   /**
+    * Returns the appropriate class name for the edit button
+    * @param {Company} company The company for this edit button
+    * @return {String} classname the edit button should be
+    */
     self.getEditButtonClass = function(company) {
         return ko.computed(function() {
             return (self.selectedCompanyToEdit() == company) ? "edit-item-btn-active" : "edit-item-btn";
         });
     };
-
-
-/*
-    self.getCSS = ko.pureComputed(function() {
-        return this.firstName() + " " + this.lastName;
-    }
-*/
-
 };
 
 
