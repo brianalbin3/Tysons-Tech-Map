@@ -89,13 +89,13 @@
                             </span>
                         </td>
                         <td>
-                            <button class="admin-table-btn">View Addresses</button>
+                            <button class="admin-table-btn" data-bind="click: $root.test">View Addresses</button>
                         </td>
                         <td>
                             <button class="delete-item-btn" data-bind="click: $root.deleteCompanyButtonPressed"></button>
                         </td>
                         <td>
-                            <button class="edit-item-btn" data-bind="click: $root.editCompanyButtonPressed"></button>
+                            <button data-bind="click: $root.editCompanyButtonPressed, css: $root.getEditButtonClass($data)"></button>
                         </td>
                     </tr>
                 </tbody>

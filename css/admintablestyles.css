@@ -79,6 +79,12 @@ td {
     text-align: center;
 }
 
+td button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .delete-item-btn {
     width: 35px;
     height: 35px;
@@ -99,6 +105,45 @@ td {
     background-size: 20px 20px;
     background-origin: content-box;
     background-position: center;
+    outline: none;
+    border-top: 2px solid #F3F3F3;
+    border-left: 2px solid #F3F3F3;
+    border-bottom: 2px solid #AAAAAA;
+    border-right: 2px solid #AAAAAA;
+}
+
+.edit-item-btn:active {
+    background-color: #018FB6;
+    outline: none;
+    border-top: 2px solid #AAAAAA;
+    border-left: 2px solid #AAAAAA;
+    border-bottom: 2px solid #F3F3F3;
+    border-right: 2px solid #F3F3F3;
+}
+
+.edit-item-btn-active {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/edit-icon.svg);
+    background-color: #018FB6;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-origin: content-box;
+    background-position: center;
+    outline: none;
+    border-top: 2px solid #AAAAAA;
+    border-left: 2px solid #AAAAAA;
+    border-bottom: 2px solid #F3F3F3;
+    border-right: 2px solid #F3F3F3;
+}
+
+.edit-item-btn-active:active {
+    background-color: #02B3E4;;
+    outline: none;
+    border-top: 2px solid #F3F3F3;
+    border-left: 2px solid #F3F3F3;
+    border-bottom: 2px solid #AAAAAA;
+    border-right: 2px solid #AAAAAA;
 }
 
 input[type=checkbox] {
@@ -106,14 +151,34 @@ input[type=checkbox] {
     height: 16px;
 }
 
-/* TODO: Can make this ALOT better */ /* Does anyone use this? i think manage companies does */
+
 .admin-table-btn {
-    color: black;
-    font-weight: 900;
-    font-size: 16px;
+    height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #F8981C;
+    background-image: -webkit-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: -moz-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: -o-linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    background-image: linear-gradient(to bottom, #F8981C 0%, #D38118 100%);
+    color: white;
+    border: none;
+    font-family: Georgia;
+    font-size: 12px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    font-weight: bold;
+}
+
+.admin-table-btn:active {
+    background-color: #D38118;
+    background-image: -webkit-linear-gradient(to bottom, #D38118 0%, #F8981C 100%);
+    background-image: -moz-linear-gradient(to bottom, #D38118 0%, #F8981C 100%);
+    background-image: -o-linear-gradient(to bottom, #D38118 0%, #F8981C 100%);
+    background-image: linear-gradient(to bottom, #D38118 0%, #F8981C 100%);
+}
+
+.admin-table-btn:focus {
+    outline: none;
 }
 
 .add-item-menu {

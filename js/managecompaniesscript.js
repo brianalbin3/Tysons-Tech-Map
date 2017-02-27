@@ -143,7 +143,6 @@ function CompanyListViewModel() {
     * @param {Company} company The company to potentially delete
     */
     self.deleteCompanyButtonPressed = function(company) {
-        alert(company)
         self.selectedCompanyToDelete(company);
         self.confirmDeleteMenuOpen(true);
     }
@@ -212,6 +211,38 @@ function CompanyListViewModel() {
         self.selectedCompanyToEdit(null);
         self.confirmEditMenuOpen(false);
     };
+/*
+    self.editButtonClass = function(company) {
+
+    };
+*/
+
+
+/*
+    self.getEditButtonClass = function(company) {
+        console.log(company)
+        return ko.computed(function() {
+            console.log(company)
+            return "edit-item-btn";
+        });
+    };
+*/
+
+
+
+    self.getEditButtonClass = function(company) {
+        return ko.computed(function() {
+            return (self.selectedCompanyToEdit() == company) ? "edit-item-btn-active" : "edit-item-btn";
+        });
+    };
+
+
+/*
+    self.getCSS = ko.pureComputed(function() {
+        return this.firstName() + " " + this.lastName;
+    }
+*/
+
 };
 
 
