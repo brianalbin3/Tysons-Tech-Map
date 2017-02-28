@@ -136,10 +136,10 @@
                             <input class="table-input" type="checkbox" data-bind="checked: isNewsAdmin, disable: $data != $root.selectedUserToEdit()">
                         </td>
                         <td>
-                            <button class="delete-item-btn" data-bind="click: $root.deleteUserButtonPressed"></button>
+                            <button class="delete-item-btn" data-bind="click: $root.deleteUserButtonPressed, css: $root.getDeleteButtonClass($data)"></button>
                         </td>
                         <td>
-                            <button class="edit-item-btn" data-bind="click: $root.editUserButtonPressed"></button>
+                            <button class="edit-item-btn" data-bind="click: $root.editUserButtonPressed, css: $root.getEditButtonClass($data)"></button>
                         </td>
                     </tr>
                 </tbody>

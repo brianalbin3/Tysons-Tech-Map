@@ -126,11 +126,23 @@ function UserListViewModel() {
     self.confirmDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
         self.users.remove( ko.utils.unwrapObservable(self.selectedUserToDelete()) );
+        self.selectedUserToDelete(null);
+    };
+
+   /**
+    * Returns the appropriate class name for the delete button
+    * @param {user} user The user for this delete button
+    * @return {String} classname the delete button should be
+    */
+    self.getDeleteButtonClass = function(user) {
+        return ko.computed(function() {
+            return (self.selectedUserToDelete() == user) ? "delete-item-btn-active" : "delete-item-btn";
+        });
     };
 
    /**
     * Called when the edit user button is pressed.
-    * Lets the user edit this companys's values, or opens confirm save menu if this user is already being edited
+    * Lets the user edit this user's values, or opens confirm save menu if this user is already being edited
     * @param {User} user The user to edit
     */
     self.editUserButtonPressed = function(user) {
@@ -194,8 +206,19 @@ function UserListViewModel() {
         self.selectedUserToEditOldValues = null;
         self.selectedUserToEdit(null);
         self.confirmEditMenuOpen(false);
-
     };
-}
+
+   /**
+    * Returns the appropriate class name for the edit button
+    * @param {User} user The user for this edit button
+    * @return {String} classname the edit button should be
+    */
+    self.getEditButtonClass = function(user) {
+        return ko.computed(function() {
+            return (self.selectedUserToEdit() == user) ? "edit-item-btn-active" : "edit-item-btn";
+        });
+    };
+
+};
 
 ko.applyBindings(new UserListViewModel());
