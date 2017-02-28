@@ -141,6 +141,8 @@ function CompanyListViewModel() {
     * @param {Company} company The company to potentially delete
     */
     self.deleteCompanyButtonPressed = function(company) {
+        self.selectedCompanyToEdit(null);
+
         self.selectedCompanyToDelete(company);
         self.confirmDeleteMenuOpen(true);
     }
@@ -181,6 +183,7 @@ function CompanyListViewModel() {
     * @param {Company} company The company to edit
     */
     self.editCompanyButtonPressed = function(company) {
+        self.selectedCompanyToDelete(null);
 
         if ( self.selectedCompanyToEdit() == null ) {
 

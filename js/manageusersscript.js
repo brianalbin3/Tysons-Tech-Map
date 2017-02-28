@@ -106,6 +106,8 @@ function UserListViewModel() {
     * @param {User} user The user to potentially delete
     */
     self.deleteUserButtonPressed = function(user) {
+        self.selectedUserToEdit(null);
+
         self.selectedUserToDelete(user);
         self.confirmDeleteMenuOpen(true);
     }
@@ -146,6 +148,7 @@ function UserListViewModel() {
     * @param {User} user The user to edit
     */
     self.editUserButtonPressed = function(user) {
+        self.selectedUserToDelete(null);
 
         if ( self.selectedUserToEdit() == null ) {
             // TODO: Is there a better way to copy the values?
