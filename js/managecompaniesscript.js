@@ -10,8 +10,6 @@ function Address(streetNo, streetName, suite, city, state, zip) {
     this.zip = ko.observable(zip);
 };
 
-// TODO: Test below
-
 /**
  * Copys all attributes of an other address to this address
  * @param {Address} otherAddress The address to copy the attributes of
@@ -163,6 +161,18 @@ function CompanyListViewModel() {
     self.confirmDeleteSelectedCompanyButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
         self.companies.remove( ko.utils.unwrapObservable(self.selectedCompanyToDelete()) );
+        self.selectedCompanyToDelete(null);
+    };
+
+   /**
+    * Returns the appropriate class name for the delete button
+    * @param {Company} company The company for this delete button
+    * @return {String} classname the delete button should be
+    */
+    self.getDeleteButtonClass = function(company) {
+        return ko.computed(function() {
+            return (self.selectedCompanyToDelete() == company) ? "delete-item-btn-active" : "delete-item-btn";
+        });
     };
 
    /**

@@ -94,6 +94,45 @@ td button {
     background-size: 20px 20px;
     background-origin: content-box;
     background-position: center;
+    outline: none;
+    border-top: 2px solid #F3F3F3;
+    border-left: 2px solid #F3F3F3;
+    border-bottom: 2px solid #AAAAAA;
+    border-right: 2px solid #AAAAAA;
+}
+
+.delete-item-btn:active {
+    background-color: #018FB6;
+    outline: none;
+    border-top: 2px solid #AAAAAA;
+    border-left: 2px solid #AAAAAA;
+    border-bottom: 2px solid #F3F3F3;
+    border-right: 2px solid #F3F3F3;
+}
+
+.delete-item-btn-active {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/trash-icon.svg);
+    background-color: #018FB6;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-origin: content-box;
+    background-position: center;
+    outline: none;
+    border-top: 2px solid #AAAAAA;
+    border-left: 2px solid #AAAAAA;
+    border-bottom: 2px solid #F3F3F3;
+    border-right: 2px solid #F3F3F3;
+}
+
+.delete-item-btn-active:active {
+    background-color: #02B3E4;;
+    outline: none;
+    border-top: 2px solid #F3F3F3;
+    border-left: 2px solid #F3F3F3;
+    border-bottom: 2px solid #AAAAAA;
+    border-right: 2px solid #AAAAAA;
 }
 
 .edit-item-btn {
