@@ -42,7 +42,6 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Users</h1>
-        <button data-bind="click: setAddingUser" id="add-item" class="std-btn add-item-btn">Add User</button>
         <div class="table-container">
             <table>
                 <thead>
@@ -145,6 +144,9 @@
                 </tbody>
             </table>
         </div> <!-- table-container -->
+        <div class="add-item-btn-container">
+            <button data-bind="click: setAddingUser" id="add-item" class="std-btn add-item-btn">Add User</button>
+        </div>
     </main>
     <div data-bind="visible: $root.addingUser()" class="gray-out"></div>
     <div data-bind="visible: $root.addingUser()" class="add-item-menu">
