@@ -1,5 +1,7 @@
 // TODO: Validation
 
+// TODO: Should be using Address from managecompanies
+
 /**
  * A user of this site
  * @param {string} userId The id of this user in the database
@@ -21,11 +23,7 @@ function User(userId, email, password, firstName, lastName, streetNo, streetName
     this.password = ko.observable(password);
     this.firstName = ko.observable(firstName);
     this.lastName = ko.observable(lastName);
-    this.streetNo = ko.observable(streetNo);
-    this.streetName = ko.observable(streetName);
-    this.city = ko.observable(city);
-    this.state = ko.observable(state);
-    this.zip = ko.observable(zip);
+    this.address = new Address(streetNo, streetName, null, city, state, zip);   // We don't care about user's apartment number, so leave null
     this.isUserAdmin = ko.observable(isUserAdmin);
     this.isNewsAdmin = ko.observable(isNewsAdmin);
 };
@@ -40,11 +38,7 @@ User.prototype.copy = function(otherUser) {
     this.password( ko.utils.unwrapObservable(otherUser.password) );
     this.firstName( ko.utils.unwrapObservable(otherUser.firstName) );
     this.lastName( ko.utils.unwrapObservable(otherUser.lastName) );
-    this.streetNo( ko.utils.unwrapObservable(otherUser.streetNo) );
-    this.streetName( ko.utils.unwrapObservable(otherUser.streetName) );
-    this.city( ko.utils.unwrapObservable(otherUser.city) );
-    this.state( ko.utils.unwrapObservable(otherUser.state) );
-    this.zip( ko.utils.unwrapObservable(otherUser.zip) );
+    this.address.copy(otherUser.address);
     this.isUserAdmin( ko.utils.unwrapObservable(otherUser.isUserAdmin) );
     this.isNewsAdmin( ko.utils.unwrapObservable(otherUser.isNewsAdmin) );
 };
@@ -60,11 +54,7 @@ User.prototype.equals = function(otherUser) {
          ko.utils.unwrapObservable(this.password) === ko.utils.unwrapObservable(otherUser.password) &&
          ko.utils.unwrapObservable(this.firstName) === ko.utils.unwrapObservable(otherUser.firstName) &&
          ko.utils.unwrapObservable(this.lastName) === ko.utils.unwrapObservable(otherUser.lastName) &&
-         ko.utils.unwrapObservable(this.streetNo) === ko.utils.unwrapObservable(otherUser.streetNo) &&
-         ko.utils.unwrapObservable(this.streetName) === ko.utils.unwrapObservable(otherUser.streetName) &&
-         ko.utils.unwrapObservable(this.city) === ko.utils.unwrapObservable(otherUser.city) &&
-         ko.utils.unwrapObservable(this.state) === ko.utils.unwrapObservable(otherUser.state) &&
-         ko.utils.unwrapObservable(this.zip) === ko.utils.unwrapObservable(otherUser.zip) &&
+         this.address.equals(otherUser.address) &&
          ko.utils.unwrapObservable(this.isUserAdmin) === ko.utils.unwrapObservable(otherUser.isUserAdmin) &&
          ko.utils.unwrapObservable(this.isNewsAdmin) === ko.utils.unwrapObservable(otherUser.isNewsAdmin) ) {
         return true;
@@ -83,7 +73,7 @@ function UserModel() {
 
    /**
     * Deletes a user
-    * @param {Sser}
+    * @param {User}
     */
     self.addUser = function(user) {
         self.users.push(user);
@@ -91,7 +81,7 @@ function UserModel() {
 
    /**
     * Deletes a user
-    * @param {Sser} user A reference to the user in users
+    * @param {User} user A reference to the user in users
     */
     self.deleteUser = function(user) {
         self.users.remove( user );

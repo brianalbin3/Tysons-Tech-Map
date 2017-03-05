@@ -100,33 +100,33 @@
                         </td>
                         <td>
                             <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
-                                <span data-bind="text: streetNo"></span>
+                                <span data-bind="text: address.streetNo"></span>
                             </span>
-                            <input class="table-input" type="text" data-bind="value: streetNo, visible: $data == $root.selectedUserToEdit()">
+                            <input class="table-input" type="text" data-bind="value: address.streetNo, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td>
                             <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
-                                <span data-bind="text: streetName"></span>
+                                <span data-bind="text: address.streetName"></span>
                             </span>
-                            <input class="table-input" type="text" data-bind="value: streetName, visible: $data == $root.selectedUserToEdit()">
+                            <input class="table-input" type="text" data-bind="value: address.streetName, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td>
                             <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
-                                <span data-bind="text: city"></span>
+                                <span data-bind="text: address.city"></span>
                             </span>
-                            <input class="table-input" type="text" data-bind="value: city, visible: $data == $root.selectedUserToEdit()">
+                            <input class="table-input" type="text" data-bind="value: address.city, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td>
                             <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
-                                <span data-bind="text: state"></span>
+                                <span data-bind="text: address.state"></span>
                             </span>
-                            <input class="table-input" type="text" data-bind="value: state, visible: $data == $root.selectedUserToEdit()">
+                            <input class="table-input" type="text" data-bind="value: address.state, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td>
                             <span data-bind="visible: $data != $root.selectedUserToEdit()" class="table-span">
-                                <span data-bind="text: zip"></span>
+                                <span data-bind="text: address.zip"></span>
                             </span>
-                            <input class="table-input" type="text" data-bind="value: zip, visible: $data == $root.selectedUserToEdit()">
+                            <input class="table-input" type="text" data-bind="value: address.zip, visible: $data == $root.selectedUserToEdit()">
                         </td>
                         <td class="checkbox-table-cell">
                             <input class="table-input" type="checkbox" data-bind="checked: isUserAdmin, disable: $data != $root.selectedUserToEdit()">
@@ -171,12 +171,12 @@
                     <div class="legend-container">
                         <legend>Address (Optional)</legend>
                     </div>
-                    <input data-bind="value: streetNo" type="text" name="addressStreetNo" placeholder="Street Number" class="common-txt-input">
-                    <input data-bind="value: streetName" type="text" name="addressStreetName" placeholder="Street Name" class="common-txt-input">
-                    <input data-bind="value: city" type="text" name="addressCity" placeholder="City" class="common-txt-input">
-                    <select data-bind="value: state, options: $root.availableStates" name="addressState" class="common-select">
+                    <input data-bind="value: address.streetNo" type="text" name="addressStreetNo" placeholder="Street Number" class="common-txt-input">
+                    <input data-bind="value: address.streetName" type="text" name="addressStreetName" placeholder="Street Name" class="common-txt-input">
+                    <input data-bind="value: address.city" type="text" name="addressCity" placeholder="City" class="common-txt-input">
+                    <select data-bind="value: address.state, options: $root.availableStates" name="addressState" class="common-select">
                     </select>
-                    <input data-bind="value: zip" type="text" name="addressZip" placeholder="Zip Code" class="common-txt-input">
+                    <input data-bind="value: address.zip" type="text" name="addressZip" placeholder="Zip Code" class="common-txt-input">
                 </fieldset>
                 <fieldset>
                     <div class="legend-container">
@@ -224,6 +224,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/commonscript.js"></script>
+    <script src="js/Address.js"></script>
     <script src="js/manageusersscript.js"></script>
 </body>
 </html>

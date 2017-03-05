@@ -1,29 +1,4 @@
 /**
- * An address
- */
-function Address(streetNo, streetName, suite, city, state, zip) {
-    this.streetNo = ko.observable(streetNo);
-    this.streetName = ko.observable(streetName);
-    this.suite = ko.observable(suite);
-    this.city = ko.observable(city);
-    this.state = ko.observable(state);
-    this.zip = ko.observable(zip);
-};
-
-/**
- * Copys all attributes of an other address to this address
- * @param {Address} otherAddress The address to copy the attributes of
- */
-Address.prototype.copy = function(otherAddress) {
-    this.streetNo( ko.utils.unwrapObservable(otherAddress.streetNo) );
-    this.streetName( ko.utils.unwrapObservable(otherAddress.streetName) );
-    this.suite( ko.utils.unwrapObservable(otherAddress.suite) );
-    this.city( ko.utils.unwrapObservable(otherAddress.city) );
-    this.state( ko.utils.unwrapObservable(otherAddress.state) );
-    this.zip( ko.utils.unwrapObservable(otherAddress.zip) );
-};
-
-/**
  * A tech company
  * @param {number} companyId The id of this company in the database
  * @param {string} name The name of this company
