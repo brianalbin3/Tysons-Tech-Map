@@ -1,5 +1,12 @@
+// TODO: Validation
+
 /**
  * An address
+ * @param {string} streetNo Street number of this user's address
+ * @param {string} streetName Street name of this user's address
+ * @param {string} city City of this user's address
+ * @param {string} state State of this user's address
+ * @param {string} zip Zip code of this user's address (5 character string)
  */
 function Address(streetNo, streetName, suite, city, state, zip) {
     this.streetNo = ko.observable(streetNo);
@@ -40,4 +47,52 @@ Address.prototype.equals = function(otherAddress) {
     }
 
     return false;
+};
+
+Address.prototype.getStreetNo = function() {
+    return this.streetNo;
+};
+
+Address.prototype.setStreetNo = function(streetNo) {
+    this.streetNo = streetNo;
+};
+
+Address.prototype.getStreetName = function() {
+    return this.streetName;
+};
+
+Address.prototype.setStreetName = function(streetName) {
+    this.streetName = streetName;
+};
+
+Address.prototype.getSuite = function() {
+    return this.suite;
+};
+
+Address.prototype.setSuite = function(suite) {
+    this.suite = suite;
+};
+
+Address.prototype.getCity = function() {
+    return this.city;
+};
+
+Address.prototype.setCity = function(city) {
+    this.city = city;
+};
+
+Address.prototype.getState = function() {
+    return this.state;
+};
+
+Address.prototype.setState = function(state) {
+    this.state = state;
+};
+
+Address.prototype.getZip = function() {
+    return this.zip;
+};
+
+Address.prototype.setZip = function(zip) {
+    this.zip = zip;
 };
