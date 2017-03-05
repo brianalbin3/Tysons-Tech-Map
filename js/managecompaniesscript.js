@@ -103,7 +103,7 @@ function CompanyListViewModel() {
     self.newCompany = ko.observable( new Company() );
 
     self.confirmDeleteMenuOpen = ko.observable(false);
-    self.selectedCompanyToDelete = ko.observable(null); // TODO: Does this need to be observable?
+    self.selectedCompanyToDelete = ko.observable(null);
 
     self.confirmEditMenuOpen = ko.observable(false);
     self.selectedCompanyToEditOldValues;

@@ -67,7 +67,6 @@ User.prototype.equals = function(otherUser) {
          ko.utils.unwrapObservable(this.zip) === ko.utils.unwrapObservable(otherUser.zip) &&
          ko.utils.unwrapObservable(this.isUserAdmin) === ko.utils.unwrapObservable(otherUser.isUserAdmin) &&
          ko.utils.unwrapObservable(this.isNewsAdmin) === ko.utils.unwrapObservable(otherUser.isNewsAdmin) ) {
-
         return true;
     }
 
@@ -118,11 +117,13 @@ function UserListViewModel(userModel) {
     self.newUser = ko.observable( new User() );
 
     self.confirmDeleteMenuOpen = ko.observable(false);
-    self.selectedUserToDelete = null;
+    self.selectedUserToDelete = ko.observable();
 
     self.confirmEditMenuOpen = ko.observable(false);
     self.selectedUserToEditOldValues;
     self.selectedUserToEdit = ko.observable(null);
+
+    self.users = userModel.users;
 
     self.availableStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Masachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma','Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
@@ -161,7 +162,7 @@ function UserListViewModel(userModel) {
     self.deleteUserButtonPressed = function(user) {
         self.selectedUserToEdit(null);
 
-        self.selectedUserToDelete = user;
+        self.selectedUserToDelete(user);
         self.confirmDeleteMenuOpen(true);
     }
 
@@ -171,7 +172,7 @@ function UserListViewModel(userModel) {
     */
     self.cancelDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        self.selectedUserToDelete = null;
+        self.selectedUserToDelete(null);
     };
 
    /**
@@ -180,8 +181,8 @@ function UserListViewModel(userModel) {
     */
     self.confirmDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        userModel.deleteUser( self.selectedUserToDelete );
-        self.selectedUserToDelete = null;
+        userModel.deleteUser( ko.utils.unwrapObservable(self.selectedUserToDelete()) );
+        self.selectedUserToDelete(null);
     };
 
    /**
