@@ -124,7 +124,6 @@ function CompanyModel() {
     };
 };
 
-
 var companyModel = new CompanyModel();
 
 function CompanyListViewModel(companyModel) {
