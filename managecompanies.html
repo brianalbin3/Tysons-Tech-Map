@@ -42,6 +42,7 @@
     </nav>
     <main>
         <h1 class="admin-table-page-header">Manage Companies</h1>
+        <button data-bind="click: setAddingCompany"  id="add-item" class="std-btn add-item-btn">Add Company</button>
         <div class="table-container">
             <table>
                 <thead>
@@ -100,9 +101,6 @@
                 </tbody>
             </table>
         </div> <!-- table-container -->
-        <div class="add-item-btn-container">
-            <button data-bind="click: setAddingCompany"  id="add-item" class="std-btn add-item-btn">Add Company</button>
-        </div>
     </main>
     <div data-bind="visible: $root.addingCompany()" class="gray-out"></div>
     <div data-bind="visible: $root.addingCompany()" class="add-item-menu">
