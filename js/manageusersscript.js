@@ -31,6 +31,25 @@ function User(userId, email, password, firstName, lastName, streetNo, streetName
 };
 
 /**
+ * Copys all attributes of an other user to this user
+ * @param {User} otherUser The user to copy the attributes of
+ */
+User.prototype.copy = function(otherUser) {
+    this.userId( ko.utils.unwrapObservable(otherUser.userId) );
+    this.email( ko.utils.unwrapObservable(otherUser.email) );
+    this.password( ko.utils.unwrapObservable(otherUser.password) );
+    this.firstName( ko.utils.unwrapObservable(otherUser.firstName) );
+    this.lastName( ko.utils.unwrapObservable(otherUser.lastName) );
+    this.streetNo( ko.utils.unwrapObservable(otherUser.streetNo) );
+    this.streetName( ko.utils.unwrapObservable(otherUser.streetName) );
+    this.city( ko.utils.unwrapObservable(otherUser.city) );
+    this.state( ko.utils.unwrapObservable(otherUser.state) );
+    this.zip( ko.utils.unwrapObservable(otherUser.zip) );
+    this.isUserAdmin( ko.utils.unwrapObservable(otherUser.isUserAdmin) );
+    this.isNewsAdmin( ko.utils.unwrapObservable(otherUser.isNewsAdmin) );
+};
+
+/**
  * Checks if this user's values are equal to another user's values
  * @param {User} Determines if this user's properties are equal the user passed in
  * @return true if the two users have equal properties, false otherwise
@@ -48,13 +67,14 @@ User.prototype.equals = function(otherUser) {
          ko.utils.unwrapObservable(this.zip) === ko.utils.unwrapObservable(otherUser.zip) &&
          ko.utils.unwrapObservable(this.isUserAdmin) === ko.utils.unwrapObservable(otherUser.isUserAdmin) &&
          ko.utils.unwrapObservable(this.isNewsAdmin) === ko.utils.unwrapObservable(otherUser.isNewsAdmin) ) {
+
         return true;
     }
 
     return false;
 };
 
-function UserListViewModel() {
+function UserModel() {
     var self = this;
 
     self.users = ko.observableArray([
@@ -62,11 +82,43 @@ function UserListViewModel() {
         new User(2, 'lucidrain929@gmail.com', '123456', 'Yuzhong', 'Chen', '6793', 'Old Waterloo Road', 'Elkridge', 'Maryland', '21075', false, false )
     ]);
 
+   /**
+    * Deletes a user
+    * @param {Sser}
+    */
+    self.addUser = function(user) {
+        self.Users.push(user);
+    };
+
+   /**
+    * Deletes a user
+    * @param {Sser} user A reference to the user in users
+    */
+    self.deleteUser = function(user) {
+        self.users.remove( user );
+    };
+
+    /**
+     * Sends the changes to this user to the database
+     * @param {User} user A reference to the user in users
+     */
+    self.saveUser = function(user) {
+        // TODO
+    };
+};
+
+var userModel = new UserModel();
+
+function UserListViewModel(userModel) {
+    var self = this;
+
+    self.users = userModel.users;
+
     self.addingUser = ko.observable(false);
     self.newUser = ko.observable( new User() );
 
     self.confirmDeleteMenuOpen = ko.observable(false);
-    self.selectedUserToDelete = ko.observable(null); // TODO: Does this need to be observable?
+    self.selectedUserToDelete = null;
 
     self.confirmEditMenuOpen = ko.observable(false);
     self.selectedUserToEditOldValues;
@@ -78,7 +130,8 @@ function UserListViewModel() {
     * Add a user
     */
     self.addUser = function() {
-        self.users.push( ko.utils.unwrapObservable(self.newUser()) );
+        userModel.addUser(ko.utils.unwrapObservable(self.newUser()));
+
         self.newUser( new User() );
 
         self.addingUser(false);
@@ -108,7 +161,7 @@ function UserListViewModel() {
     self.deleteUserButtonPressed = function(user) {
         self.selectedUserToEdit(null);
 
-        self.selectedUserToDelete(user);
+        self.selectedUserToDelete = user;
         self.confirmDeleteMenuOpen(true);
     }
 
@@ -118,7 +171,7 @@ function UserListViewModel() {
     */
     self.cancelDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        self.selectedUserToDelete(null);
+        self.selectedUserToDelete = null;
     };
 
    /**
@@ -127,8 +180,8 @@ function UserListViewModel() {
     */
     self.confirmDeleteSelectedUserButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        self.users.remove( ko.utils.unwrapObservable(self.selectedUserToDelete()) );
-        self.selectedUserToDelete(null);
+        userModel.deleteUser( self.selectedUserToDelete );
+        self.selectedUserToDelete = null;
     };
 
    /**
@@ -151,19 +204,9 @@ function UserListViewModel() {
         self.selectedUserToDelete(null);
 
         if ( self.selectedUserToEdit() == null ) {
-            // TODO: Is there a better way to copy the values?
-            self.selectedUserToEditOldValues = new User(ko.utils.unwrapObservable(user.userId()),
-                                                        ko.utils.unwrapObservable(user.email()),
-                                                        ko.utils.unwrapObservable(user.password()),
-                                                        ko.utils.unwrapObservable(user.firstName()),
-                                                        ko.utils.unwrapObservable(user.lastName()),
-                                                        ko.utils.unwrapObservable(user.streetNo()),
-                                                        ko.utils.unwrapObservable(user.streetName()),
-                                                        ko.utils.unwrapObservable(user.city()),
-                                                        ko.utils.unwrapObservable(user.state()),
-                                                        ko.utils.unwrapObservable(user.zip()),
-                                                        ko.utils.unwrapObservable(user.isUserAdmin()),
-                                                        ko.utils.unwrapObservable(user.isNewsAdmin()));
+
+            self.selectedUserToEditOldValues = new User();
+            self.selectedUserToEditOldValues.copy(user);
 
             self.selectedUserToEdit(user);
         }
@@ -184,6 +227,8 @@ function UserListViewModel() {
     * Closes the confirm edit changes menu and saves the user's new values
     */
     self.confirmEditSelectedUserButtonPressed = function() {
+        userModel.saveUser( ko.utils.unwrapObservable(self.selectedUserToEdit()) );
+
         self.selectedUserToEditOldValues = null;
         self.selectedUserToEdit(null);
         self.confirmEditMenuOpen(false);
@@ -193,18 +238,7 @@ function UserListViewModel() {
     * Closes the confirm edit changes menu and resets user's values to what they were before
     */
     self.cancelEditSelectedUserButtonPressed = function() {
-        // TODO: Is there a better way to copy the values?
-        self.selectedUserToEdit().email( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.email) );
-        self.selectedUserToEdit().password( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.password) );
-        self.selectedUserToEdit().firstName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.firstName) );
-        self.selectedUserToEdit().lastName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.lastName) );
-        self.selectedUserToEdit().streetNo( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.streetNo) );
-        self.selectedUserToEdit().streetName( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.streetName) );
-        self.selectedUserToEdit().city( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.city) );
-        self.selectedUserToEdit().state( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.state) );
-        self.selectedUserToEdit().zip( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.zip) );
-        self.selectedUserToEdit().isUserAdmin( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.isUserAdmin) );
-        self.selectedUserToEdit().isNewsAdmin( ko.utils.unwrapObservable(self.selectedUserToEditOldValues.isNewsAdmin) );
+        ko.utils.unwrapObservable(self.selectedUserToEdit).copy(self.selectedUserToEditOldValues);
 
         self.selectedUserToEditOldValues = null;
         self.selectedUserToEdit(null);
@@ -224,4 +258,4 @@ function UserListViewModel() {
 
 };
 
-ko.applyBindings(new UserListViewModel());
+ko.applyBindings(new UserListViewModel(userModel));
