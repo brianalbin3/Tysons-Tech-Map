@@ -91,13 +91,46 @@ Company.prototype.hasSameNonAddressValues = function(otherCompany) {
         return false;
 };
 
-function CompanyListViewModel() {
+function CompanyModel() {
     var self = this;
 
     self.companies = ko.observableArray([
         new Company(1, 'Booz Allen Hamilton', 'www.boozallen.com', 'TODO', '283', 'Greensboro Dr', 'McLean', 'Virginia', '22102' ),
         new Company(2, 'SAIC', 'www.saic.com', 'TODO', '1710', 'SAIC Dr', 'McLean', 'Virginia', '22102' )
     ]);
+
+   /**
+    * Deletes a company
+    * @param {Company} A new company to add
+    */
+    self.addCompany = function(company) {
+        self.companies.push(company);
+    };
+
+   /**
+    * Deletes a company
+    * @param {Company} company A reference to the company in companies
+    */
+    self.deleteCompany = function(company) {
+        self.companies.remove( company );
+    };
+
+    /**
+     * Sends the changes to this company to the database
+     * @param {Company} company A reference to the company in companies to be saved
+     */
+    self.saveCompany = function(company) {
+        // TODO
+    };
+};
+
+
+var companyModel = new CompanyModel();
+
+function CompanyListViewModel(companyModel) {
+    var self = this;
+
+    self.companyModel = companyModel;
 
     self.addingCompany = ko.observable(false);
     self.newCompany = ko.observable( new Company() );
@@ -113,7 +146,7 @@ function CompanyListViewModel() {
     * Add a Company
     */
     self.addCompany = function(company) {
-        self.companies.push( ko.utils.unwrapObservable(self.newCompany()) );
+        self.companyModel.addCompany(ko.utils.unwrapObservable(self.newCompany()))
         self.newCompany( new Company() );
 
         self.addingCompany(false);
@@ -162,7 +195,7 @@ function CompanyListViewModel() {
     */
     self.confirmDeleteSelectedCompanyButtonPressed = function() {
         self.confirmDeleteMenuOpen(false);
-        self.companies.remove( ko.utils.unwrapObservable(self.selectedCompanyToDelete()) );
+        self.companyModel.deleteCompany( ko.utils.unwrapObservable(self.selectedCompanyToDelete()));
         self.selectedCompanyToDelete(null);
     };
 
@@ -218,7 +251,7 @@ function CompanyListViewModel() {
     * Closes the confirm edit changes menu and resets the company's values to what they were before
     */
     self.cancelEditSelectedCompanyButtonPressed = function() {
-        ko.utils.unwrapObservable(self.selectedCompanyToEdit).copy(self.selectedCompanyToEditOldValues);
+        self.companyModel.saveCompany( ko.utils.unwrapObservable(self.selectedCompanyToEdit()) );
 
         self.selectedCompanyToEditOldValues = null;
         self.selectedCompanyToEdit(null);
@@ -238,4 +271,4 @@ function CompanyListViewModel() {
 };
 
 
-ko.applyBindings(new CompanyListViewModel());
+ko.applyBindings(new CompanyListViewModel(companyModel));

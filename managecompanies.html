@@ -55,7 +55,7 @@
                         <th><img width="20" height="20" src="img/edit-icon.svg" alt="Edit"></th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: companies">
+                <tbody data-bind="foreach: $root.companyModel.companies">
                     <tr>
                         <td>
                             <span data-bind="visible: $data != $root.selectedCompanyToEdit()" class="table-span">
