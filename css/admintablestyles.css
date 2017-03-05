@@ -1,5 +1,4 @@
 main {
-    text-align: center;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -7,61 +6,27 @@ main {
 }
 
 .admin-table-page-header {
-    display: inline-block;
+    width: 100%;
+    text-align: center;
     font-family: Impact;
     padding-top: 5px;
-    padding-bottom: 0;
-    padding-right: 5px;
-    padding-left: 5px;
-    margin-top: 30px;
-    margin-bottom: 0;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    background-color: #F8981C;
-    color: white;
-    font-family: Impact;
-    width: 100%;
-}
-
-.add-item-btn-container {
-    width: calc(100%);
-    background-color: #02B3E4;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-    -o-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+    padding-bottom: 20px;
 }
 
 .add-item-btn {
-    width: calc(100%);
-    background-image: -webkit-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
-    background-image: -moz-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
-    background-image: -o-linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
-    background-image: linear-gradient(to bottom, #02B3E4 0%, #015A72 100%);
-    border: 1px solid #02B3E4;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-}
-
-.add-item-btn:active {
-    width: 100%;
-    background-image: -webkit-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
-    background-image: -moz-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
-    background-image: -o-linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
-    background-image: linear-gradient(to bottom, #015A72 0%, #02B3E4 100%);
-    border: 1px solid #02B3E4;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    outline: none;
+    width: 200px;
+    margin-bottom: 10px;
 }
 
 .table-container {
-    width: 100%;
+    width: calc( 100% - 40px ); /* TODO: There has got to be a better way to get shadows working */;
     margin-left: auto;
     margin-right: auto;
     overflow-x: auto;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -o-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
 }
 
 table {
@@ -87,25 +52,9 @@ th {
     font-size: 14px;
 }
 
-th:first-of-type {
-    border-left-color: #F8981C;
-}
-
-th:last-of-type {
-    border-right-color: #F8981C;
-}
-
 td {
     background-color: #02B3E4;
     height: 60px;
-}
-
-td:first-of-type {
-    border-left-color: #02B3E4;
-}
-
-td:last-of-type {
-    border-right-color: #02B3E4;
 }
 
 .table-span {
@@ -309,10 +258,6 @@ input[type=checkbox] {
 }
 
 @media screen and (max-width: 550px) {
-
-    .admin-table-page-header {
-        width: calc(100% - 10px - 2px);
-    }
 
     .table-container {
         width: calc( 100% - 10px );
