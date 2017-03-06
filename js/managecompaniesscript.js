@@ -148,6 +148,8 @@ function CompanyListViewModel(companyModel) {
     * Closes the confirm edit changes menu and saves the company's new values
     */
     self.confirmEditSelectedCompanyButtonPressed = function() {
+        self.companyModel.saveCompany( ko.utils.unwrapObservable(self.selectedCompanyToEdit()) );
+
         self.selectedCompanyToEditOldValues = null;
         self.selectedCompanyToEdit(null);
         self.confirmEditMenuOpen(false);
@@ -157,7 +159,7 @@ function CompanyListViewModel(companyModel) {
     * Closes the confirm edit changes menu and resets the company's values to what they were before
     */
     self.cancelEditSelectedCompanyButtonPressed = function() {
-        self.companyModel.saveCompany( ko.utils.unwrapObservable(self.selectedCompanyToEdit()) );
+        ko.utils.unwrapObservable(self.selectedCompanyToEdit).copy(self.selectedCompanyToEditOldValues);
 
         self.selectedCompanyToEditOldValues = null;
         self.selectedCompanyToEdit(null);
