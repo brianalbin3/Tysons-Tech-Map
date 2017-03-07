@@ -71,6 +71,7 @@
     display: block;
     text-decoration: none;
     color: #F8981C;
+    font-family: 'Georgia';
 }
 
 .sidebar li a:hover {
