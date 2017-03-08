@@ -49,50 +49,64 @@ Address.prototype.equals = function(otherAddress) {
     return false;
 };
 
+// TODO: Include Suite
+/**
+ * Returns the address as a formatted string
+ * @return {String} A formatted address of the format
+ *     7921 Rustling Bark Court, Ellicott City, MD OR Ellicott City, Md
+ */
+Address.prototype.getFormattedAddress = function() {
+    if ( this.streetNo === '' || this.streetName === '' ) {
+        return this.city + ', ' + this.state;
+    }
+
+    return this.streetNo + ' ' + this.streetName + ', ' + this.city + ', ' + this.state;
+};
+
 Address.prototype.getStreetNo = function() {
-    return this.streetNo;
+    return ko.utils.unwrapObservable(this.streetNo);
 };
 
 Address.prototype.setStreetNo = function(streetNo) {
-    this.streetNo = streetNo;
+    this.streetNo(streetNo);
 };
 
 Address.prototype.getStreetName = function() {
-    return this.streetName;
+    return ko.utils.unwrapObservable(this.streetName);
 };
 
 Address.prototype.setStreetName = function(streetName) {
-    this.streetName = streetName;
+    this.streetName(streetName);
 };
 
 Address.prototype.getSuite = function() {
-    return this.suite;
+    return ko.utils.unwrapObservable(this.suite);
 };
 
 Address.prototype.setSuite = function(suite) {
-    this.suite = suite;
+    this.suite(suite);
 };
 
 Address.prototype.getCity = function() {
-    return this.city;
+    return ko.utils.unwrapObservable(this.city);
 };
 
 Address.prototype.setCity = function(city) {
-    this.city = city;
+    this.city(city);
 };
 
 Address.prototype.getState = function() {
-    return this.state;
+    return ko.utils.unwrapObservable(this.state);
 };
 
 Address.prototype.setState = function(state) {
-    this.state = state;
+    this.state(state);
 };
 
 Address.prototype.getZip = function() {
-    return this.zip;
+    return ko.utils.unwrapObservable(this.zip);
 };
 
 Address.prototype.setZip = function(zip) {
-    this.zip = zip;
+    this.zip(zip);
 };

@@ -68,39 +68,39 @@ Company.prototype.hasSameNonAddressValues = function(otherCompany) {
 
 
 Company.prototype.getCompanyId = function() {
-    return this.companyId;
+    return ko.utils.unwrapObservable(this.companyId);
 };
 
 Company.prototype.setCompanyId = function(companyId) {
-    this.companyId = companyId;
+    this.companyId(companyId);
 };
 
 Company.prototype.getName = function() {
-    return this.name;
+    return ko.utils.unwrapObservable(this.name);
 };
 
 Company.prototype.setName = function(name) {
-    this.name = name;
+    this.name(name);
 };
 
 Company.prototype.getWebSite = function() {
-    return this.webSite;
+    return ko.utils.unwrapObservable(this.webSite);
 };
 
 Company.prototype.setWebSite = function(webSite) {
-    this.webSite = webSite;
+    this.webSite(webSite);
 };
 
 Company.prototype.getLogoImageFile = function() {
-    return this.logoImageFile;
+    return ko.utils.unwrapObservable(this.logoImageFile);
 };
 
 Company.prototype.setLogoImageFile = function(logoImageFile) {
-    this.logoImageFile = logoImageFile;
+    this.logoImageFile(logoImageFile);
 };
 
 Company.prototype.getAddresses = function() {
-    return this.addresses;
+    return ko.utils.unwrapObservable(this.addresses);
 };
 
 Company.prototype.addAddress = function(address) {

@@ -62,43 +62,43 @@ User.prototype.equals = function(otherUser) {
 };
 
 User.prototype.getUserId = function() {
-    return this.userId
+    return ko.utils.unwrapObservable(this.userId);
 };
 
 User.prototype.setUserId = function(userId) {
-    this.userId = userId;
+    this.userId(userId);
 };
 
 User.prototype.getEmail = function() {
-    return this.email;
+    return ko.utils.unwrapObservable(this.email);
 };
 
 User.prototype.setEmail = function(email) {
-    this.email = email;
+    this.email(email);
 };
 
 User.prototype.getPassword = function() {
-    return this.password;
+    return ko.utils.unwrapObservable(this.password);
 };
 
 User.prototype.setPassword = function(password) {
-    this.password = password;
+    this.password(password);
 };
 
 User.prototype.getFirstName = function() {
-    return this.firstName;
+    return ko.utils.unwrapObservable(this.firstName);
 };
 
 User.prototype.setFirstName = function(firstName) {
-    this.firstName = firstName;
+    this.firstName(firstName);
 };
 
 User.prototype.getLastName = function() {
-    return this.lastName;
+    return ko.utils.unwrapObservable(this.lastName);
 };
 
 User.prototype.setLastName = function(lastName) {
-    this.lastName = lastName;
+    this.lastName(lastName);
 };
 
 User.prototype.getStreetNo = function () {
@@ -142,17 +142,17 @@ User.prototype.setZip = function(zip) {
 };
 
 User.prototype.isUserAdmin = function() {
-    return this.isUserAdmin;
+    return ko.utils.unwrapObservable(this.isUserAdmin);
 };
 
 User.prototype.setUserAdminStatus = function(isUserAdmin) {
-    this.isUserAdmin = isUserAdmin;
+    this.isUserAdmin(isUserAdmin);
 };
 
 User.prototype.isNewsAdmin = function() {
-    return this.isNewsAdmin;
+    return ko.utils.unwrapObservable(this.isNewsAdmin);
 };
 
 User.prototype.setNewsAdminStatus = function(isNewsAdmin) {
-    this.isNewsAdmin = isNewsAdmin;
+    this.isNewsAdmin(isNewsAdmin);
 };
