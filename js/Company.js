@@ -19,6 +19,7 @@
 
     this.addresses = new ko.observableArray();
 
+    // TODO: I don't think google maps needs every one of these
     if ( streetNo !== undefined && streetNo !== null &&
          streetName !== undefined && streetName !== null &&
          city !== undefined && city !== null &&
@@ -41,7 +42,7 @@ Company.prototype.copy = function(otherCompany) {
 
     this.addresses.removeAll();
 
-    for (let i = otherCompany.addresses().length -1; i >= 0; i-- ) {
+    for (let i = 0; i < otherCompany.addresses().length; i-- ) {
         let addr = new Address();
         addr.copy( ko.utils.unwrapObservable(otherCompany.addresses()[i] ) );
         this.addresses.push(addr);
@@ -99,8 +100,8 @@ Company.prototype.setLogoImageFile = function(logoImageFile) {
     this.logoImageFile(logoImageFile);
 };
 
-Company.prototype.getAddresses = function() {
-    return ko.utils.unwrapObservable(this.addresses);
+Company.prototype.getAddresses = function() {               // TODO: should this be unwrapobservable
+    return this.addresses;
 };
 
 Company.prototype.addAddress = function(address) {

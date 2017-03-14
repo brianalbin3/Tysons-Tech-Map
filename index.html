@@ -19,9 +19,9 @@
                 <input type="text" data-bind="textInput: filter" class="search-bar-text-box">
                 <img src="img/magnifyingglass.svg" alt="Find" class="search-bar-magnifying-glass">
             </div>
-            <ul class="sidebar" data-bind="foreach: filterLocations">
+            <ul class="sidebar" data-bind="foreach: filterCompanies">
                 <li data-bind="click: $parent.setActiveLocation">
-                    <a href="#" data-bind="text: name, style: { fontWeight: $parent.currentLocation().location.name == name ? 'bolder' : 'normal', color: $parent.currentLocation().location.name == name ? 'white' : '' }"></a>
+                    <a href="#" data-bind="text: name, css: $root.getLocationListItemClass($data)"></a>
                 </li>
             </ul>
         </aside>
@@ -69,6 +69,9 @@
     <script src="js/libs/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
+    <script src="js/Address.js"></script>
+    <script src="js/Company.js"></script>
+    <script src="js/CompanyModel.js"></script>
     <script src="js/mainmapscript.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDTYiGEY8-a21cTJc_X8gnCiBQCY4Vm988&callback=initMap&v=3" onerror="googleMapsError()"></script>
     <script src="js/commonscript.js"></script>

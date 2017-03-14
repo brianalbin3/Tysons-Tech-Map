@@ -29,6 +29,7 @@
     margin-left: -250px;
     overflow-y: auto;
     background: black;
+    border-right: 1px solid #101010;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -83,6 +84,11 @@
 .sidebar li a:active,
 .sidebar li a:focus {
     text-decoration: none;
+}
+
+.sidebar li a.sidebarListSelectedItem {
+    font-weight: bolder;
+    color: white;
 }
 
 @media(min-width:768px) {

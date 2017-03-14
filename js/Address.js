@@ -49,6 +49,7 @@ Address.prototype.equals = function(otherAddress) {
     return false;
 };
 
+// TODO: Rename this as maybe getFormattedAddressAsString()
 // TODO: Include Suite
 /**
  * Returns the address as a formatted string
@@ -56,11 +57,11 @@ Address.prototype.equals = function(otherAddress) {
  *     7921 Rustling Bark Court, Ellicott City, MD OR Ellicott City, Md
  */
 Address.prototype.getFormattedAddress = function() {
-    if ( this.streetNo === '' || this.streetName === '' ) {
-        return this.city + ', ' + this.state;
+    if ( this.streetNo() === '' || this.streetName() === '' ) {
+        return this.city() + ', ' + this.state();
     }
 
-    return this.streetNo + ' ' + this.streetName + ', ' + this.city + ', ' + this.state;
+    return this.streetNo() + ' ' + this.streetName() + ', ' + this.city() + ', ' + this.state();
 };
 
 Address.prototype.getStreetNo = function() {

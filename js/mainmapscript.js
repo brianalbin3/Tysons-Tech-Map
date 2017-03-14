@@ -1,82 +1,71 @@
-var mainMap;
-
-var Location = function(name, streetNo, streetName, city, state) {
-    this.name = name;
-    this.streetNo = streetNo;
-    this.streetName = streetName;
-    this.city = city;
-    this.state = state;
-    this.fourSquareInfo = new FourSquareLocationInfo(name, city, state);
+/**
+ * A company that will be represented on the map. A marker will be on the map for this company
+ * and when it is selected an info window will display information about the company
+ * @param {Company} company The company to be appear on the google map
+ */
+var CompanyMapLocation = function(company) {
+    this.company = company;
 
     this.marker = null;
     this.infoWindowContent = null;
 };
 
 /**
- * Returns the location's formatted address
- * @return {String} A formatted address of the format
- *     7921 Rustling Bark Court, Ellicott City, MD OR Ellicott City, Md
+ * Returns the company
+ * @return {Company} the company for this company map location
  */
-Location.prototype.getFormattedAddress = function() {
-    if ( this.streetNo === '' || this.streetName === '' ) {
-        return this.city + ', ' + this.state;
-    }
-
-    return this.streetNo + ' ' + this.streetName + ', ' + this.city + ', ' + this.state;
+CompanyMapLocation.prototype.getCompany = function() {
+    return this.company;
 };
 
-var FourSquareLocationInfo = function(name, city, state) {
-    this.name = name;
-    this.city = city;
-    this.state = state;
-
-    this.phone;
-    this.twitter;
-    this.facebookUsername;
-    this.categories = [];
-    this.website;
-
-    var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?near=' + this.city +', '+ this.state +
-                        '&query='+ this.name +'&limit=1&oauth_token=FSOWT50BEYQIEETU5RHQHFVEIYBG3LFIZWJKU24U254RFTWA&v=20160701'; //TODO: PROPER OAUTH TOKEN
-
-    $.getJSON(fourSquareURL, function(data) {
-        var venue = data.response.venues[0];
-
-        this.name = venue.name;
-        this.phone = venue.contact.phone;
-        this.twitter = venue.contact.twitter;
-        this.facebookUsername = venue.contact.facebookUsername;
-
-        var numCategories = venue.categories.length;
-        for (var i = 0; i < numCategories; i++) {
-            this.categories.push(venue.categories[i].name);
-        }
-
-        this.website = venue.url;
-    }.bind(this))
-    .fail( function(jqXTR, status, error) {
-        this.phone = 'Could not connect to FourSquare...';
-        this.twitter = 'Could not connect to FourSquare...';
-        this.facebookUsername = 'Could not connect to FourSquare...';
-        this.website = 'Could not connect to FourSquare...';
-    }.bind(this));
-};
-
-/*
- * Returns the formatted phone number
- * @return {String} A the phone number in the format (410) 799-5959
+/**
+ * Returns the map marker for this company map location
+ * @return {google.maps.Marker} the map marker for this company map location
  */
-FourSquareLocationInfo.prototype.getFormattedPhoneNumber = function() {
-    return '(' + this.phone.substring(0,3) + ') ' + this.phone.substring(3,6) + '-' + this.phone.substring(6,10);
+CompanyMapLocation.prototype.getMarker = function() {
+    return this.marker;
 };
 
-var LocationModel = function() {
+/**
+ * Sets the map marker for this company
+ * @param {google.maps.Marker} marker The map marker to use for this company
+ */
+CompanyMapLocation.prototype.setMarker = function(marker) {
+    this.marker = marker;
+};
+
+/**
+ * Get the info window content that will appear when this company is set to active
+ * @return {string|Node} The HTML content that will appear in the info window when this place is active
+ */
+CompanyMapLocation.prototype.getInfoWindowContent = function() {
+    return this.infoWindowContent;
+};
+
+/**
+ * Set the info window content that will appear when this company is set to active
+ * @param {string|Node} infoWindowContent The HTML content to appear in the info window when this companty is set to active. For example: <h1>Northrop Grumman</h1>
+ */
+CompanyMapLocation.prototype.setInfoWindowContent = function(infoWindowContent) {
+    this.infoWindowContent = infoWindowContent;
+};
+
+/**
+ * Contains a list of company map locations
+ * @param {CompanyModel} companyModel Locations will be derived from the companies contained in this model
+ */
+var LocationModel = function(companyModel) { // TODO: Not sure if this is how I want to do it
+    this.companyModel = companyModel;
     this.locations = [];
-    this.locations['Barton Springs Pool'] = new Location('Barton Springs Pool', '2101', 'Barton Springs Rd', 'Austin', 'Texas');
-    this.locations['Game Over Video Games'] = new Location('Game Over Video Games', '3005', 'S Lamar Blvd', 'Austin', 'Texas');
-    this.locations['Pinballz Arcade'] = new Location('Pinballz Arcade', '', '', 'Austin', 'Texas');
-    this.locations['St. Edward\'s Park'] = new Location('St. Edward\'s Park', '7301', 'Spicewood Springs Rd', 'Austin', 'Texas');
-    this.locations['Alamo Drafthouse Cinema'] = new Location('Alamo Drafthouse Cinema', '2700', 'W Anderson Ln', 'Austin', 'Texas');
+
+    this.companies = this.companyModel.getCompanies();
+
+    for (let i = 0; i < this.companies().length; i++) {
+        let company = this.companies()[i];
+        let companyName = company.getName();
+
+        this.locations[companyName] = new CompanyMapLocation(company);
+    }
 };
 
 /**
@@ -88,62 +77,87 @@ LocationModel.prototype.getLocationByName = function(name) {
     return this.locations[name];
 };
 
-var lm = new LocationModel();
 
-var ViewModel = function() {
+// TODO: Should I pass in lm as well,
+// Also, why do I need companyModel when locationModel has access to everything in companyModel?
+var ViewModel = function() { // TODO: rename this
     var self = this;
+
+    self.companyModel = companyModel;
 
     self.filter = ko.observable('');
 
-    self.currentLocation = ko.observable({ 'location': { 'name': '' } });
+    self.currentLocation = ko.observable();
 
-    self.locationList = ko.observableArray([]);
 
-    for (var key in lm.locations) {
-        if ( lm.locations.hasOwnProperty(key) ) {
-            self.locationList.push( lm.locations[key] );
-        }
-    }
+   /**
+    * Sets the company as the active location on the map and list and opens an InfoWindow above the selected location
+    * @param {Company} The company to set as the active location
+    */
+    self.setActiveLocation = function(company) {
+        let locName = company.getName();
 
-    self.setActiveLocation = function(data, event) {
-        mainMap.setActiveMarker(data.name);
-        mainMap.openInfoWindowAtLocation(data.name);
+        mainMap.setActiveMarker(locName);
+        mainMap.openInfoWindowAtLocation(locName);
 
-        self.currentLocation( { location: data } );
+        let location = lm.getLocationByName(locName);
+
+        self.currentLocation( location );
     };
 
-    self.filterLocations = ko.computed(function () {
+
+   /**
+    * Filters the companies in the list depending on if they are in the filter. If a company isn't in the filter,
+    * it will be removed from the map and deselected.
+    */
+    self.filterCompanies = ko.computed(function () {
         if (!self.filter()) {
             if ( mainMap ) { // MAP NOT YET LOADED
                 mainMap.setAllMarkersVisible(true);
             }
-
-            return self.locationList();
+            return self.companyModel.companies();
         }
         else {
-            return ko.utils.arrayFilter(self.locationList(), function (locationItem) {
-                var locName = locationItem.name;
-                var show = locName.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1;
+            return ko.utils.arrayFilter(self.companyModel.companies(), function(company) {
+
+                let locName = company.getName();
+
+                let show = locName.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1;
 
                 if ( show === false ) {
                     mainMap.setLocationMarkerInactive(locName);
 
-                    if ( locName === self.currentLocation().location.name ) {
-                        self.currentLocation({ 'location': { 'name': '' } });
+                    if ( self.currentLocation() && self.currentLocation().getCompany().getName() === locName  ) {
+                        self.currentLocation( null );
                         mainMap.hideInfoWindow();
                     }
-
                 }
-
                 mainMap.setLocationMarkerVisible(locName, show);
+
                 return show;
             });
         }
     });
+
+   /**
+    * Returns the appropriate class name for the location link
+    * @param {Company} The company for this location link
+    * @return {string} classname the edit button should be
+    */
+    self.getLocationListItemClass = function(company) {
+        return ko.pureComputed(function() {
+            if ( self.currentLocation() && self.currentLocation().getCompany().getName() === company.getName() ) {
+                return 'sidebarListSelectedItem'
+            }
+            return '';
+        });
+    };
 };
 
-var vm = new ViewModel();
 
+
+
+// TODO: MARKERS SHOULD ALL BE IN MAP
 var Map = function(containerId) {
 
     this.container = document.getElementById(containerId);
@@ -159,7 +173,87 @@ var Map = function(containerId) {
  */
 Map.prototype.render = function() {
     var mapOptions = {
-        disableDefaultUI: true
+        disableDefaultUI: true,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#000000'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
     };
 
     this.map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
@@ -173,7 +267,7 @@ Map.prototype.render = function() {
  * Resizes the map to use all available space
  */
 Map.prototype.resizeMap = function() {
-    var center = this.map.getCenter();
+    let center = this.map.getCenter();
     google.maps.event.trigger(this.map, 'resize');
     this.map.setCenter(center);
 };
@@ -183,9 +277,9 @@ Map.prototype.resizeMap = function() {
  * @param {boolean} makeVisible True to make all map markers visible, false to make all map markers invisible
  */
 Map.prototype.setAllMarkersVisible = function(makeVisible) {
-    for (var key in lm.locations) {
+    for (let key in lm.locations) {
         if ( lm.locations.hasOwnProperty(key) ) {
-            lm.locations[key].marker.setVisible(makeVisible);
+            lm.locations[key].getMarker().setVisible(makeVisible);
         }
     }
 };
@@ -196,8 +290,8 @@ Map.prototype.setAllMarkersVisible = function(makeVisible) {
  * @param {boolean} isVisible True to make the location visible, false to make it invisible
  */
 Map.prototype.setLocationMarkerVisible = function(locationName, isVisible) {
-    var location = lm.getLocationByName(locationName);
-    var marker = location.marker;
+    let location = lm.getLocationByName(locationName);
+    let marker = location.getMarker();
 
     if ( marker !== null ) {
         marker.setVisible(isVisible);
@@ -209,8 +303,8 @@ Map.prototype.setLocationMarkerVisible = function(locationName, isVisible) {
  * @param {string} locationName The name of the location whose marker is to be made active
  */
 Map.prototype.setActiveMarker = function(locationName) {
-    var location = lm.getLocationByName(locationName);
-    var marker = location.marker;
+    let location = lm.getLocationByName(locationName);
+    let marker = location.getMarker();
 
     if ( marker !== null ) {
         this._setActiveMarker(marker);
@@ -222,11 +316,11 @@ Map.prototype.setActiveMarker = function(locationName) {
  * @param {string} locationName The name of the location which will have an infoWindow appear at its map marker
  */
 Map.prototype.openInfoWindowAtLocation = function(locationName) {
-    var location = lm.getLocationByName(locationName);
+    let location = lm.getLocationByName(locationName);
 
     if ( location !== null ) {
-        this.infoWindow.setContent( location.infoWindowContent );
-        this.infoWindow.open(this.map, location.marker);
+        this.infoWindow.setContent( location.getInfoWindowContent() );
+        this.infoWindow.open(this.map, location.getMarker());
     }
 };
 
@@ -243,8 +337,8 @@ Map.prototype.hideInfoWindow = function() {
  * @param {string} locationName The name of the location whose marker is to be made inactive
  */
 Map.prototype.setLocationMarkerInactive = function(locationName) {
-    var location = lm.getLocationByName(locationName);
-    var marker = location.marker;
+    let location = lm.getLocationByName(locationName);
+    let marker = location.getMarker();
 
     marker.setIcon(this._DESELECTED_MARKER_ICON);
 };
@@ -254,9 +348,9 @@ Map.prototype.setLocationMarkerInactive = function(locationName) {
  * @param {string} marker The marker to be made active
  */
 Map.prototype._setActiveMarker = function(marker) {
-    for (var key in lm.locations) {
+    for (let key in lm.locations) {
         if ( lm.locations.hasOwnProperty(key) ) {
-            lm.locations[key].marker.setIcon(this._DESELECTED_MARKER_ICON);
+            lm.locations[key].getMarker().setIcon(this._DESELECTED_MARKER_ICON);
         }
     }
 
@@ -266,17 +360,23 @@ Map.prototype._setActiveMarker = function(marker) {
 /**
  * Creates a map marker on the map for each location in the location model
  */
-Map.prototype._addLocationMarkers = function () {
-    var self = this;
+Map.prototype._addLocationMarkers = function () { // TODO: THIS IS BAD, SHOULDN'T LOOK IT UP EVERY TIME
+    let self = this;
 
-    var service = new google.maps.places.PlacesService(this.map);
+    let service = new google.maps.places.PlacesService(this.map);
 
-    for (var key in lm.locations) {
+    for (let key in lm.locations) {
         if ( lm.locations.hasOwnProperty(key) ) {
-            var location = lm.locations[key];
-            var locationQuery = location.name + ' ' + location.getFormattedAddress();
+            let location = lm.locations[key];
 
-            var request = {
+            // TODO: FIX LATER
+            let addresses = location.getCompany().getAddresses();
+            let firstAddress = addresses()[0];
+            let formattedAddress = firstAddress.getFormattedAddress();
+
+            let locationQuery = location.getCompany().getName() + ' ' + formattedAddress;
+
+            let request = {
                 query: locationQuery
             };
 
@@ -296,79 +396,43 @@ Map.prototype._addLocationMarkers = function () {
 
 /**
  * Creates a map marker from a location and the result of a google place search on the location
- * @param {?????} result The result of a google place search on the location
+ * @param {???} result The result of a google place search on the location
  * @param {Location} location
  */
 Map.prototype._createMapMarker = function(result, location) {
-    var lat = result.geometry.location.lat(),
+    let lat = result.geometry.location.lat(),
         lon = result.geometry.location.lng(),
         //name = result.formatted_address;   // name of the place from the place service
         name = location.name,
         bounds = window.mapBounds;
 
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       map: this.map,
       position: result.geometry.location,
       title: name,
       icon: this._DESELECTED_MARKER_ICON
     });
 
-    var infoWindowContent = '<div>' +
-                                '<h1 class="info-window-header">' + location.name + '</h1>' +
+    // TODO: FIX LATER
+    let addresses = location.getCompany().getAddresses();
+    let firstAddress = addresses()[0];
+    let formattedAddress = firstAddress.getFormattedAddress();
+
+    let infoWindowContent = '<div>' +
+                                '<h1 class="info-window-header">' + location.getCompany().getName() + '</h1>' +
                                 '<div>' +
                                     '<img class="info-window-icon" src="img/infoWindowAddressIcon.png">' +
-                                    '<span>' + location.getFormattedAddress()  + '</span>' +
+                                    '<span>' + formattedAddress  + '</span>' +
                                 '</div>';
-    if ( location.fourSquareInfo.categories.length !== 0 ) {
-            infoWindowContent += '<div>' +
-                                    '<img class="info-window-icon" src="img/infoWindowAddressIcon.png" alt="Categories">' +
-                                    '<span>';
-                                    var numCategories = location.fourSquareInfo.categories.length;
-                                    for (var i = 0; i < numCategories; i++) {
-                                        infoWindowContent += location.fourSquareInfo.categories[i];
 
-                                        if (i !== numCategories - 1) {
-                                            infoWindowContent += ', ';
-                                        }
-                                    }
-            infoWindowContent +=    '</span>';
-            infoWindowContent += '</div>';
-    }
-    //TODO: Target is still not working
-    if ( location.fourSquareInfo.phone ) {
-            infoWindowContent += '<div>' +
-                                    '<img class="info-window-icon" src="img/infoWindowPhoneIcon.png">' +
-                                    '<a href="tel:' + location.fourSquareInfo.phone + '">' + location.fourSquareInfo.getFormattedPhoneNumber() + '</a>' +
-                                '</div>';
-    }
-    if ( location.fourSquareInfo.twitter ) {
-           infoWindowContent += '<div>' +
-                                    '<img class="info-window-icon" src="img/infoWindowWebsiteIcon.png">' +
-                                    '<a href="http://www.twitter.com/' + location.fourSquareInfo.twitter + '" target="_blank">www.twitter.com/' + location.fourSquareInfo.twitter + '</a>' +
-                                '</div>';
-    }
-    if ( location.fourSquareInfo.facebookUsername ) {
-           infoWindowContent += '<div>' +
-                                    '<img class="info-window-icon" src="img/infoWindowWebsiteIcon.png">' +
-                                    '<a href="http://www.facebook.com/' + location.fourSquareInfo.facebookUsername + '" target="_blank">www.facebook.com/' + location.fourSquareInfo.facebookUsername + '</a>' +
-                                '</div>';
-    }
-    if ( location.fourSquareInfo.website ) {
-           infoWindowContent += '<div>' +
-                                    '<img class="info-window-icon" src="img/infoWindowWebsiteIcon.png">' +
-                                    '<a href="' + location.fourSquareInfo.website + '" target="_blank">' + location.fourSquareInfo.website + '</a>' +
-                                '</div>' +
-                             '</div>';
-    }
-
-    location.marker = marker;
-    location.infoWindowContent = infoWindowContent;
+    location.setMarker(marker);
+    location.setInfoWindowContent(infoWindowContent);
 
     google.maps.event.addListener(marker, 'click', function() {
-        vm.currentLocation( { location: location } );
+        vm.currentLocation( location );
         this._setActiveMarker(marker);  //TODO: Should maybe use a callback
 
-        this.infoWindow.setContent(location.infoWindowContent);
+        this.infoWindow.setContent(location.getInfoWindowContent());
 
         this.infoWindow.open(this.map, marker);
     }.bind(this));
@@ -377,6 +441,13 @@ Map.prototype._createMapMarker = function(result, location) {
     this.map.fitBounds(bounds);
     this.map.setCenter(bounds.getCenter());
 };
+
+
+
+var mainMap;
+var companyModel = new CompanyModel();
+var lm = new LocationModel(companyModel);
+var vm = new ViewModel(companyModel);
 
 /**
  * Initializes the google map
