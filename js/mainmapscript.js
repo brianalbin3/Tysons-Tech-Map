@@ -189,14 +189,32 @@ Map.prototype.render = function() {
               stylers: [{color: '#d59563'}]
             },
             {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
+              "featureType": "poi.park",
+              "stylers": [{"visibility": "off"}]
             },
             {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
+            "featureType": "poi.government",
+            "stylers": [{"visibility": "off"}]
+            },
+            {
+            "featureType": "poi.medical",
+            "stylers": [{"visibility": "off"}]
+            },
+            {
+              "featureType": "poi.place_of_worship",
+              "stylers": [{"visibility": "off"}]
+            },
+            {
+              "featureType": "poi.school",
+              "stylers": [{"visibility": "off"}]
+            },
+            {
+              "featureType": "poi.sports_complex",
+              "stylers": [{ "visibility": "off" }]
+            },
+            {
+              "featureType": "poi.attraction",
+              "stylers": [{"visibility": "off"}]
             },
             {
               featureType: 'road',
